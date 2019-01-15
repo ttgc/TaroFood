@@ -31,25 +31,29 @@ Database::disconnect();
   <body>
     <div class="jumbotron container">
       <div class="row">
-        <h1 class="display-4 text-center col-12">Connexion à l'administration</h1>
-        <?php if ($notconnected) { ?>
-        <div class="alert alert-danger" role="alert">
-          Login ou mot de passe incorrect !
+        <div class="col-8">
+          <h1 class="display-4 text-center">Connexion à l'administration</h1>
+          <?php if ($notconnected) { ?>
+          <div class="alert alert-danger text-center" role="alert">
+            Login ou mot de passe incorrect !
+          </div>
+          <?php } ?>
+          <hr class="my-4">
+          <form method="post">
+            <div class="form-group">
+              <label for="mail">Email address</label>
+              <input type="email" class="form-control" id="mail" placeholder="Enter email" required>
+            </div>
+            <div class="form-group">
+              <label for="pwd">Password</label>
+              <input type="password" class="form-control" id="pwd" placeholder="Password" required>
+            </div>
+            <div class="form-actions text-center">
+              <button type="submit" class="btn btn-success">Connexion</button>
+            </div>
+          </form>
         </div>
-        <?php } ?>
       </div>
-      <hr class="my-4">
-      <form method="post" class="row">
-        <div class="form-group col-12">
-          <label for="mail">Email address</label>
-          <input type="email" class="form-control" id="mail" placeholder="Enter email">
-        </div>
-        <div class="form-group col-12">
-          <label for="pwd">Password</label>
-          <input type="password" class="form-control" id="pwd" placeholder="Password">
-        </div>
-        <button type="submit" class="btn btn-success">Connexion</button>
-      </form>
     </div>
 
     <!--JQuery-->
