@@ -1,5 +1,5 @@
 <?php
-require 'database.php';
+require 'includes/database.php';
 $db = Database::connect();
 $notconnected = false;
 
@@ -29,32 +29,34 @@ Database::disconnect();
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   </head>
   <body>
-    <div class="jumbotron container">
+    <div class="container">
       <div class="row">
-        <div class="col-8">
-          <h1 class="display-4 text-center">Connexion à l'administration</h1>
-          <?php if ($notconnected) { ?>
-          <div class="alert alert-danger text-center" role="alert">
-            Login ou mot de passe incorrect !
-          </div>
-          <?php } ?>
-          <hr class="my-4">
-          <form method="post">
-            <div class="form-group">
-              <label for="mail">Email address</label>
-              <input type="email" class="form-control" id="mail" placeholder="Enter email" required>
+        <div class="col-6 offset-3">
+          <div class="jumbotron">
+            <h1 class="display-4 text-center">Connexion à l'administration</h1>
+            <?php if ($notconnected) { ?>
+            <div class="alert alert-danger text-center" role="alert">
+              Login ou mot de passe incorrect !
             </div>
-            <div class="form-group">
-              <label for="pwd">Password</label>
-              <input type="password" class="form-control" id="pwd" placeholder="Password" required>
-            </div>
-            <div class="form-actions text-center">
+            <?php } ?>
+            <hr class="my-4">
+            <form method="post">
+              <div class="form-group">
+                <label for="mail">Email address</label>
+                <input type="email" class="form-control" id="mail" placeholder="Enter email" required>
+              </div>
+              <div class="form-group">
+                <label for="pwd">Password</label>
+                <input type="password" class="form-control" id="pwd" placeholder="Password" required>
+              </div>
+              <div class="form-actions text-center">
               <button type="submit" class="btn btn-success">Connexion</button>
             </div>
           </form>
         </div>
       </div>
     </div>
+  </div>
 
     <!--JQuery-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
