@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mar 15 Janvier 2019 à 08:01
+-- Généré le :  Mar 15 Janvier 2019 à 08:40
 -- Version du serveur :  5.7.11
 -- Version de PHP :  7.2.7
 
@@ -85,6 +85,17 @@ CREATE TABLE `commande` (
 CREATE TABLE `compo_menu` (
   `id` int(11) NOT NULL,
   `produit_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `compo_produit`
+--
+
+CREATE TABLE `compo_produit` (
+  `produit_id` int(11) NOT NULL,
+  `option_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -201,7 +212,8 @@ CREATE TABLE `type_commande` (
 
 CREATE TABLE `user` (
   `login` varchar(255) NOT NULL,
-  `mdp` varchar(255) NOT NULL
+  `mdp` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -244,6 +256,12 @@ ALTER TABLE `client`
 --
 ALTER TABLE `compo_menu`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `compo_produit`
+--
+ALTER TABLE `compo_produit`
+  ADD PRIMARY KEY (`produit_id`,`option_id`);
 
 --
 -- Index pour la table `custom_produit`
