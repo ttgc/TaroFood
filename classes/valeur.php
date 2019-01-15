@@ -16,7 +16,7 @@ class valeur{
         $data=$req->fetch();
 
         $this->id=$id;
-        $this->lib=$data['libelle'];
+        $this->valeur=$data['valeur'];
         $this->opt_id=$data['option_id'];
     }
 

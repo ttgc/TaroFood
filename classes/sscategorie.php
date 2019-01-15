@@ -3,6 +3,7 @@ class sscategorie{
 
     public $id;
     public $lib;
+    public $cat;
 
     /**
      * Constructeur de la classe sscategorie
@@ -16,6 +17,7 @@ class sscategorie{
 
         $this->id=$id;
         $this->lib=$data['libelle'];
+        $this->cat=$data['categorie_id'];
     }
 
     /**
