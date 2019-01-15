@@ -1,9 +1,22 @@
 <?php
 require 'database.php';
 $db = Database::connect();
+$notconnected = false;
 
 if (!empty($_POST)) {
-  header('Location: admin.php');
+  if (!empty($_POST['mail']) && !empty($_POST['pwd'])) {
+    $statement = $deb->prepare("SELECT mdp,token FROM user WHERE login = ?");
+    $statement->execute(array($_POST['mail']));
+    $usr = $statement->fetch();
+    if ($usr != NULL && ($usr['token'] == session_id() || password_verify($_POST['pwd'],$usr['mdp']))) {
+      $token = session_id();
+      $statement = $db->prepare("UPDATE user SET token = ? WHERE login = ?");
+      $statement->execute(array($token,$_POST['mail']));
+      header('Location: admin.php');
+    } else {
+      $notconnected = true;
+    }
+  }
 }
 
 Database::disconnect();
@@ -19,14 +32,19 @@ Database::disconnect();
     <div class="jumbotron container">
       <div class="row">
         <h1 class="display-4 text-center col-12">Connexion à l'administration</h1>
+        <?php if ($notconnected) { ?>
+        <div class="alert alert-danger" role="alert">
+          Login ou mot de passe incorrect !
+        </div>
+        <?php } ?>
       </div>
       <hr class="my-4">
-      <form method="post">
-        <div class="form-group">
+      <form method="post" class="row">
+        <div class="form-group col-12">
           <label for="mail">Email address</label>
           <input type="email" class="form-control" id="mail" placeholder="Enter email">
         </div>
-        <div class="form-group">
+        <div class="form-group col-12">
           <label for="pwd">Password</label>
           <input type="password" class="form-control" id="pwd" placeholder="Password">
         </div>
