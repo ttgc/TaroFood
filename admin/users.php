@@ -31,6 +31,7 @@
                 <td><?php echo $item['login']; ?></td>
                 <td><?php echo $item['libelle']; ?></td>
                 <td>
+                  <button type="button" class="btn btn-warning"><i class="fas fa-users"></i> Changer groupe</button>
                   <button href=<?php echo "#modal".$item['idusr']; ?> type="button" class="btn btn-danger" data-toggle="modal"><i class="fas fa-user-minus"></i> Supprimer</button>
                 </td>
               </tr>
