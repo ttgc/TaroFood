@@ -25,7 +25,7 @@ class sscategorie{
      * @param $cat_id
      * @return array
      */
-    static function getSScat($cat_id){
+    static function getProduitCat($cat_id){
         global $db;
         
         $req=$db->query("SELECT * FROM sscategorie WHERE categorie_id=$cat_id");

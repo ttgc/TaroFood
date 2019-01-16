@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mar 15 Janvier 2019 à 08:01
+-- Généré le :  Mer 16 Janvier 2019 à 10:39
 -- Version du serveur :  5.7.11
 -- Version de PHP :  7.2.7
 
@@ -19,17 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `taroweb`
 --
-
--- --------------------------------------------------------
-
---
--- Structure de la table `acces`
---
-
-CREATE TABLE `acces` (
-  `user_id` int(11) NOT NULL,
-  `droit_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -73,7 +62,8 @@ CREATE TABLE `commande` (
   `total` float NOT NULL,
   `commentaire` text,
   `etat_id` int(11) NOT NULL,
-  `type_id` int(11) NOT NULL
+  `type_id` int(11) NOT NULL,
+  `client_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -83,8 +73,19 @@ CREATE TABLE `commande` (
 --
 
 CREATE TABLE `compo_menu` (
-  `id` int(11) NOT NULL,
+  `menu_id` int(11) NOT NULL,
   `produit_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `compo_produit`
+--
+
+CREATE TABLE `compo_produit` (
+  `produit_id` int(11) NOT NULL,
+  `option_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -104,10 +105,10 @@ CREATE TABLE `custom_produit` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `droit`
+-- Structure de la table `etat_commande`
 --
 
-CREATE TABLE `droit` (
+CREATE TABLE `etat_commande` (
   `id` int(11) NOT NULL,
   `libelle` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -115,10 +116,10 @@ CREATE TABLE `droit` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `etat_commande`
+-- Structure de la table `groupe`
 --
 
-CREATE TABLE `etat_commande` (
+CREATE TABLE `groupe` (
   `id` int(11) NOT NULL,
   `libelle` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -200,8 +201,10 @@ CREATE TABLE `type_commande` (
 --
 
 CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
   `login` varchar(255) NOT NULL,
-  `mdp` varchar(255) NOT NULL
+  `mdp` varchar(255) NOT NULL,
+  `groupe_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -221,12 +224,6 @@ CREATE TABLE `valeur_option` (
 --
 
 --
--- Index pour la table `acces`
---
-ALTER TABLE `acces`
-  ADD PRIMARY KEY (`user_id`,`droit_id`);
-
---
 -- Index pour la table `categorie`
 --
 ALTER TABLE `categorie`
@@ -243,7 +240,13 @@ ALTER TABLE `client`
 -- Index pour la table `compo_menu`
 --
 ALTER TABLE `compo_menu`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`menu_id`,`produit_id`);
+
+--
+-- Index pour la table `compo_produit`
+--
+ALTER TABLE `compo_produit`
+  ADD PRIMARY KEY (`produit_id`,`option_id`);
 
 --
 -- Index pour la table `custom_produit`
@@ -252,15 +255,15 @@ ALTER TABLE `custom_produit`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `droit`
---
-ALTER TABLE `droit`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Index pour la table `etat_commande`
 --
 ALTER TABLE `etat_commande`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `groupe`
+--
+ALTER TABLE `groupe`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -303,7 +306,7 @@ ALTER TABLE `type_commande`
 -- Index pour la table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`login`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `valeur_option`
@@ -326,24 +329,19 @@ ALTER TABLE `categorie`
 ALTER TABLE `client`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `compo_menu`
---
-ALTER TABLE `compo_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT pour la table `custom_produit`
 --
 ALTER TABLE `custom_produit`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `droit`
---
-ALTER TABLE `droit`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT pour la table `etat_commande`
 --
 ALTER TABLE `etat_commande`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `groupe`
+--
+ALTER TABLE `groupe`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `menu`

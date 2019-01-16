@@ -41,10 +41,10 @@ class commande{
      * @param $etat_id
      * @return array
      */
-    static function getCommande($client_id, $type_id, $etat_id){
+    static function getCommande($client_id=null, $type_id=null, $etat_id=null){
         global $db;
         
-        $sql = "SELECT * FROM commande WHERE client_id=$cat_id";
+        $sql = "SELECT * FROM commande WHERE client_id=$client_id";
         $arr=array("type_id" => $type_id,"etat_id" => $etat_id);
         foreach($arr as $k => $a){
             if(isset($a) && !empty($a)){

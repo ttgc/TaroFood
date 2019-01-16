@@ -31,7 +31,7 @@ class custom_produit{
      * @param $valeur_id
      * @return array
      */
-    static function getProduitCustom($commande_id, $produit_id, $valeur_id){
+    static function getProduitCustom($commande_id=null, $produit_id=null, $valeur_id=null){
         global $db;
         
         $sql = "";

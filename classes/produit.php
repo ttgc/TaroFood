@@ -23,7 +23,7 @@ class produit{
     }
 
     /**
-     * Renvoie toutes les produits de la sous-categorie $sscat_id
+     * Renvoie tous les produits de la sous-categorie $sscat_id
      * @param $sscat_id
      * @return array
      */
