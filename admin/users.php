@@ -20,18 +20,29 @@
             </thead>
             <tbody>
               <?php
-                require 'includes/database.php';
+                require '../includes/database.php';
 
                 $db = Database::connect();
                 $statement = $db->query("SELECT user.id AS idusr,login,libelle FROM user INNER JOIN groupe ON (groupe.id = user.groupe_id) ORDER BY user.id");
                 while ($item = $statement->fetch()) {
               ?>
-              <tr>
+              <tr id=<?php echo "user-".$item['idusr']; ?>>
                 <th scope="row"><?php echo $item['idusr']; ?></th>
-                <td><?php echo $item['login']; ?></td>
-                <td><?php echo $item['libelle']; ?></td>
+                <td class="info"><?php echo $item['login']; ?></td>
+                <td class="update update-login" style="display: none;"><input type="text" value=<?php echo $item['login']; ?>></td>
+                <td class="info"><?php echo $item['libelle']; ?></td>
+                <td class="update update-group" style="display: none;">
+                  <select>
+                    <?php
+                      $statement2 = $db->query("SELECT * FROM groupe");
+                      while ($grp = $statement2->fetch()) {
+                    ?>
+                      <option value=<?php echo $grp['id']; ?>><?php echo $grp['libelle']; ?></option>
+                    <?php } ?>
+                  </select>
+                </td>
                 <td>
-                  <button type="button" class="btn btn-warning"><i class="fas fa-users"></i> Changer groupe</button>
+                  <button type="button" class="btn btn-warning info" onclick=<?php echo "update_user(".$item['idusr'].");"; ?>><i class="fas fa-users"></i> Modifier</button>
                   <button href=<?php echo "#modal".$item['idusr']; ?> type="button" class="btn btn-danger" data-toggle="modal"><i class="fas fa-user-minus"></i> Supprimer</button>
                 </td>
               </tr>
@@ -67,6 +78,7 @@
       </div>
     </div>
 
-    <?php require 'includes/footer.php'; ?>
+    <?php require '../includes/footer.php'; ?>
+    <script src="../script/updateuser.js"></script>
   </body>
 </html>

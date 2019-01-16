@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-  <?php require 'includes/head.php'; ?>
+  <?php require '../includes/head.php'; ?>
   <body>
-    <?php require 'includes/header.php'; ?>
+    <?php require '../includes/header.php'; ?>
 
     <section class="container">
       <div class="row">
@@ -56,6 +56,6 @@
       </div>
     </section>
 
-    <?php require 'includes/footer.php'; ?>
+    <?php require '../includes/footer.php'; ?>
   </body>
 </html>
