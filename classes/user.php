@@ -38,8 +38,8 @@ class user{
                 $token = session_id();
                 if ($token == ''){
                     session_start();
-                    $_SESSION['login']=$user->login;
                 }
+                $_SESSION['login']=$user->login;
             }
         }
     }
