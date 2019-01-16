@@ -48,7 +48,7 @@
               <h5 class="card-title">Utilisateurs</h5>
               <p class="card-text">Accéder au panel de gestion des utilisateurs</p>
               <div class="text-center">
-                <a href="users.php" class="btn btn-primary">Pannel produit</a>
+                <a href="users.php" class="btn btn-primary">Pannel utilisateurs</a>
               </div>
             </div>
           </div>
