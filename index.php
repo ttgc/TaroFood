@@ -3,16 +3,19 @@
 
 
 <?php
-require "includes/head.php";
+require "includes/head2.php";
+require "includes/database.php";
+
+
+
 ?>
+
 <body>
-
-
 
 
   <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropDown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -79,9 +82,9 @@ require "includes/head.php";
         </div>
 
 
-        <?php
+        <!--?php
         $db = Database::connect();
-        ?>
+        ?-->
 
         <div class="card w-75" style="width: 18rem;">
           <div class="row">
@@ -146,13 +149,87 @@ require "includes/head.php";
     </div>
 </div-->
 
+<br/>
 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<div class="container">
+    <div id="carouselExample" class="carousel slide" data-ride="carousel" data-interval="9000">
+        <div class="carousel-inner row w-100 mx-auto" role="listbox">
+            <div class="carousel-item col-md-3  active">
+               <div class="panel panel-default">
+                  <div class="panel-thumbnail">
+                    <a href="#" title="image 1" class="thumb">
+                      <img class="img-fluid mx-auto d-block" src="images/b1" alt="slide 1">
+                    </a>
+                  </div>
+                </div>
+            </div>
+            <div class="carousel-item col-md-3 ">
+               <div class="panel panel-default">
+                  <div class="panel-thumbnail">
+                    <a href="#" title="image 3" class="thumb">
+                     <img class="img-fluid mx-auto d-block" src="images/b2.png" alt="slide 2">
+                    </a>
+                  </div>
+                </div>
+            </div>
+            <div class="carousel-item col-md-3 ">
+               <div class="panel panel-default">
+                  <div class="panel-thumbnail">
+                    <a href="#" title="image 4" class="thumb">
+                     <img class="img-fluid mx-auto d-block" src="images/b3.png" alt="slide 3">
+                    </a>
+                  </div>
+                </div>
+            </div>
+            <div class="carousel-item col-md-3 ">
+                <div class="panel panel-default">
+                  <div class="panel-thumbnail">
+                    <a href="#" title="image 5" class="thumb">
+                     <img class="img-fluid mx-auto d-block" src="images/b4.png" alt="slide 4">
+                    </a>
+                  </div>
+                </div>
+            </div>
+            <div class="carousel-item col-md-3 ">
+              <div class="panel panel-default">
+                  <div class="panel-thumbnail">
+                    <a href="#" title="image 6" class="thumb">
+                      <img class="img-fluid mx-auto d-block" src="images/b5.png" alt="slide 5">
+                    </a>
+                  </div>
+                </div>
+            </div>
+            <div class="carousel-item col-md-3 ">
+               <div class="panel panel-default">
+                  <div class="panel-thumbnail">
+                    <a href="#" title="image 7" class="thumb">
+                      <img class="img-fluid mx-auto d-block" src="images.b6.png" alt="slide 6">
+                    </a>
+                  </div>
+                </div>
+            </div>
+
+        </div>
+        <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next text-faded" href="#carouselExample" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+
+
+
+<?php
+//  require "script/script.js";
+require "includes/footer.php";
+  ?>
+
+
   </body>
 
 
