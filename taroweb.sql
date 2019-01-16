@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1
--- http://www.phpmyadmin.net
+-- version 4.6.6deb5
+-- https://www.phpmyadmin.net/
 --
--- Client :  localhost
--- Généré le :  Mer 16 Janvier 2019 à 10:39
--- Version du serveur :  5.7.11
--- Version de PHP :  7.2.7
+-- Host: localhost:3306
+-- Generation Time: Jan 16, 2019 at 02:36 PM
+-- Server version: 10.1.37-MariaDB-3
+-- PHP Version: 7.2.9-1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `taroweb`
+-- Database: `Tarofood`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `categorie`
+-- Table structure for table `categorie`
 --
 
 CREATE TABLE `categorie` (
@@ -34,7 +34,7 @@ CREATE TABLE `categorie` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `client`
+-- Table structure for table `client`
 --
 
 CREATE TABLE `client` (
@@ -49,7 +49,7 @@ CREATE TABLE `client` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `commande`
+-- Table structure for table `commande`
 --
 
 CREATE TABLE `commande` (
@@ -69,7 +69,7 @@ CREATE TABLE `commande` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `compo_menu`
+-- Table structure for table `compo_menu`
 --
 
 CREATE TABLE `compo_menu` (
@@ -80,7 +80,7 @@ CREATE TABLE `compo_menu` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `compo_produit`
+-- Table structure for table `compo_produit`
 --
 
 CREATE TABLE `compo_produit` (
@@ -91,7 +91,7 @@ CREATE TABLE `compo_produit` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `custom_produit`
+-- Table structure for table `custom_produit`
 --
 
 CREATE TABLE `custom_produit` (
@@ -105,7 +105,7 @@ CREATE TABLE `custom_produit` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `etat_commande`
+-- Table structure for table `etat_commande`
 --
 
 CREATE TABLE `etat_commande` (
@@ -116,7 +116,7 @@ CREATE TABLE `etat_commande` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `groupe`
+-- Table structure for table `groupe`
 --
 
 CREATE TABLE `groupe` (
@@ -127,7 +127,7 @@ CREATE TABLE `groupe` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `menu`
+-- Table structure for table `menu`
 --
 
 CREATE TABLE `menu` (
@@ -139,7 +139,7 @@ CREATE TABLE `menu` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `option_produit`
+-- Table structure for table `option_produit`
 --
 
 CREATE TABLE `option_produit` (
@@ -150,7 +150,7 @@ CREATE TABLE `option_produit` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `paiement`
+-- Table structure for table `paiement`
 --
 
 CREATE TABLE `paiement` (
@@ -161,20 +161,21 @@ CREATE TABLE `paiement` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `produit`
+-- Table structure for table `produit`
 --
 
 CREATE TABLE `produit` (
   `id` int(11) NOT NULL,
   `libelle` varchar(255) NOT NULL,
   `prix` float NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
   `sscategorie_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `sscategorie`
+-- Table structure for table `sscategorie`
 --
 
 CREATE TABLE `sscategorie` (
@@ -186,7 +187,7 @@ CREATE TABLE `sscategorie` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `type_commande`
+-- Table structure for table `type_commande`
 --
 
 CREATE TABLE `type_commande` (
@@ -197,7 +198,7 @@ CREATE TABLE `type_commande` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
@@ -210,7 +211,7 @@ CREATE TABLE `user` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `valeur_option`
+-- Table structure for table `valeur_option`
 --
 
 CREATE TABLE `valeur_option` (
@@ -220,161 +221,161 @@ CREATE TABLE `valeur_option` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Index pour les tables exportées
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `categorie`
+-- Indexes for table `categorie`
 --
 ALTER TABLE `categorie`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `client`
+-- Indexes for table `client`
 --
 ALTER TABLE `client`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Index pour la table `compo_menu`
+-- Indexes for table `compo_menu`
 --
 ALTER TABLE `compo_menu`
   ADD PRIMARY KEY (`menu_id`,`produit_id`);
 
 --
--- Index pour la table `compo_produit`
+-- Indexes for table `compo_produit`
 --
 ALTER TABLE `compo_produit`
   ADD PRIMARY KEY (`produit_id`,`option_id`);
 
 --
--- Index pour la table `custom_produit`
+-- Indexes for table `custom_produit`
 --
 ALTER TABLE `custom_produit`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `etat_commande`
+-- Indexes for table `etat_commande`
 --
 ALTER TABLE `etat_commande`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `groupe`
+-- Indexes for table `groupe`
 --
 ALTER TABLE `groupe`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `menu`
+-- Indexes for table `menu`
 --
 ALTER TABLE `menu`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `option_produit`
+-- Indexes for table `option_produit`
 --
 ALTER TABLE `option_produit`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `paiement`
+-- Indexes for table `paiement`
 --
 ALTER TABLE `paiement`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `produit`
+-- Indexes for table `produit`
 --
 ALTER TABLE `produit`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `sscategorie`
+-- Indexes for table `sscategorie`
 --
 ALTER TABLE `sscategorie`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `type_commande`
+-- Indexes for table `type_commande`
 --
 ALTER TABLE `type_commande`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `valeur_option`
+-- Indexes for table `valeur_option`
 --
 ALTER TABLE `valeur_option`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT pour les tables exportées
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `categorie`
+-- AUTO_INCREMENT for table `categorie`
 --
 ALTER TABLE `categorie`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `client`
+-- AUTO_INCREMENT for table `client`
 --
 ALTER TABLE `client`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `custom_produit`
+-- AUTO_INCREMENT for table `custom_produit`
 --
 ALTER TABLE `custom_produit`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `etat_commande`
+-- AUTO_INCREMENT for table `etat_commande`
 --
 ALTER TABLE `etat_commande`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `groupe`
+-- AUTO_INCREMENT for table `groupe`
 --
 ALTER TABLE `groupe`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `menu`
+-- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `option_produit`
+-- AUTO_INCREMENT for table `option_produit`
 --
 ALTER TABLE `option_produit`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `paiement`
+-- AUTO_INCREMENT for table `paiement`
 --
 ALTER TABLE `paiement`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `produit`
+-- AUTO_INCREMENT for table `produit`
 --
 ALTER TABLE `produit`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `sscategorie`
+-- AUTO_INCREMENT for table `sscategorie`
 --
 ALTER TABLE `sscategorie`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `type_commande`
+-- AUTO_INCREMENT for table `type_commande`
 --
 ALTER TABLE `type_commande`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `valeur_option`
+-- AUTO_INCREMENT for table `valeur_option`
 --
 ALTER TABLE `valeur_option`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;

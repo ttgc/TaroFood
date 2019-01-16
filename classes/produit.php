@@ -4,6 +4,7 @@ class produit{
     public $id;
     public $lib;
     public $prix;
+    public $image;
     public $sscat;
 
     /**
@@ -19,6 +20,7 @@ class produit{
         $this->id=$id;
         $this->lib=$data['libelle'];
         $this->prix=$data['prix'];
+        $this->image=$data['image'];
         $this->sscat=$data['sscategorie_id'];
     }
 
