@@ -1,21 +1,10 @@
 <?php
 require 'includes/database.php';
+require '../classes/user.php';
 $db = Database::connect();
-$notconnected = false;
-
 if (!empty($_POST)) {
   if (!empty($_POST['mail']) && !empty($_POST['pwd'])) {
-    $statement = $deb->prepare("SELECT mdp,token FROM user WHERE login = ?");
-    $statement->execute(array($_POST['mail']));
-    $usr = $statement->fetch();
-    if ($usr != NULL && ($usr['token'] == session_id() || password_verify($_POST['pwd'],$usr['mdp']))) {
-      $token = session_id();
-      $statement = $db->prepare("UPDATE user SET token = ? WHERE login = ?");
-      $statement->execute(array($token,$_POST['mail']));
-      header('Location: admin.php');
-    } else {
-      $notconnected = true;
-    }
+    user::login($_POST['mail'],$_POST['pwd']);
   }
 }
 
@@ -24,17 +13,14 @@ Database::disconnect();
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Taro Food</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  </head>
+  <?php include 'includes/head.php' ?>
   <body>
     <div class="container">
       <div class="row">
         <div class="col-6 offset-3">
           <div class="jumbotron">
             <h1 class="display-4 text-center">Connexion à l'administration</h1>
-            <?php if ($notconnected) { ?>
+            <?php if (session_status()!=2) { ?>
             <div class="alert alert-danger text-center" role="alert">
               Login ou mot de passe incorrect !
             </div>
