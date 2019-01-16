@@ -45,10 +45,14 @@ class commande{
         global $db;
         
         $sql = "SELECT * FROM commande WHERE client_id=$client_id";
-        $arr=array("type_id" => $type_id,"etat_id" => $etat_id);
+        $arr=array("client_id" => $client_id,"type_id" => $type_id,"etat_id" => $etat_id);
         foreach($arr as $k => $a){
-            if(isset($a) && !empty($a)){
-                $sql.=" AND $k=$a";
+            if(!empty($a)){
+                if(empty($sql)){
+                    $sql=" WHERE $k='$a'";
+                }else{
+                    $sql.=" AND $k='$a'";
+                }
             }
         }
 

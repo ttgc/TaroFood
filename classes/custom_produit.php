@@ -39,9 +39,9 @@ class custom_produit{
         foreach($arr as $k => $a){
             if(!empty($a)){
                 if(empty($sql)){
-                    $sql=" WHERE $k=$a";
+                    $sql=" WHERE $k='$a'";
                 }else{
-                    $sql.=" AND $k=$a";
+                    $sql.=" AND $k='$a'";
                 }
             }
         }
