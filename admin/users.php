@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-  <?php require 'includes/head.php'; ?>
+  <?php require '../includes/head.php'; ?>
   <body>
-    <?php require 'includes/header.php'; ?>
+    <?php require '../includes/header.php'; ?>
 
     <div class="container">
       <div class="row">
