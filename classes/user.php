@@ -57,11 +57,7 @@ class user{
             if (!password_verify($mdp,$user->mdp)) {
                 return "Mot de passe invalide";
             }else{
-                $token = session_id();
-                if ($token == ''){
-                    session_start();
-                }
-                $_SESSION['login']=$user->login;
+                $_SESSION['user']=$user;
                 return null;
             }
         }

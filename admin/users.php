@@ -1,3 +1,10 @@
+<?php
+require '../includes/fonctions.php';
+$groupes=array(1);
+if(!fonctions::access_check($groupes)){
+  header('Location:admin.php');
+}
+?>
 <!DOCTYPE html>
 <html>
   <?php require '../includes/head.php'; ?>

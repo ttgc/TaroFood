@@ -1,3 +1,9 @@
+<?php
+require '../classes/groupe.php';
+require '../includes/fonctions.php';
+$groupes=groupe::getAllGroupes();
+fonctions::access_check($groupes);
+?>
 <!DOCTYPE html>
 <html>
   <?php require '../includes/head.php'; ?>

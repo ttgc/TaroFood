@@ -2,10 +2,17 @@
 require '../includes/database.php';
 require '../classes/user.php';
 $db = Database::connect();
-
-if (!empty($_POST)) {
-  if (!empty($_POST['login']) && !empty($_POST['pwd'])) {
-    $err=user::login($_POST['login'],$_POST['pwd']);
+session_start();
+if(session_status()==2 && !empty($_SESSION)){
+  header("Location:admin.php");
+}else{
+  if (!empty($_POST)) {
+    if (!empty($_POST['login']) && !empty($_POST['pwd'])) {
+      $err=user::login($_POST['login'],$_POST['pwd']);
+      if(empty($err) && session_status()==2){
+        header("Location:admin.php");
+      }
+    }
   }
 }
 ?>
