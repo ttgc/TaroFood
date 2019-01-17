@@ -6,17 +6,18 @@ class fonctions{
      * @return boolean
      */
     static function access_check($groupes){
-        require '../classes/user.php';
+        require_once '../classes/user.php';
         session_start();
         if(session_status()!=2 or empty($_SESSION)){
-            echo "test";
             header("Location:login.php");
         }else{
+            require_once '../classes/groupe.php';
             $user=$_SESSION['user'];
-            if(in_array($user->groupe,$groupes)){
+            $groupe=new groupe($user->groupe);
+            if(in_array($groupe,$groupes)){
                 return true;
             }else{
-                return false;
+                header("Location:../admin/admin.php");
             }
         }
     }

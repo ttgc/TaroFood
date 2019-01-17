@@ -3,7 +3,7 @@ require '../includes/database.php';
 require '../classes/user.php';
 $db = Database::connect();
 session_start();
-if(session_status()==2 && !empty($_SESSION)){
+if(!empty($_SESSION['user'])){
   header("Location:admin.php");
 }else{
   if (!empty($_POST)) {

@@ -23,7 +23,7 @@ class user{
     }
 
     /**
-     * Récupère l'utilisateur qui a pour login login
+     * Récupère l'utilisateur qui a pour login $login
      * @param $login
      * @return user
      */
@@ -43,9 +43,21 @@ class user{
     }
 
     /**
+     * Récupère tous les utilisateurs
+     * @return array
+     */
+    static function getAllUsers(){
+        global $db;
+
+        $req=$db->query("SELECT * FROM user ");
+        return $req->fetchAll();
+    }
+
+    /**
      * Essaie de connecter l'utilisateur
      * @param $login
      * @param $mdp
+     * @return $err Erreur de connexion ou null si la connexion a abouti
      */
     static function login($login,$mdp){
         global $db;

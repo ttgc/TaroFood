@@ -1,15 +1,19 @@
 <?php
+require '../classes/groupe.php';
+require '../classes/user.php';
 require '../includes/fonctions.php';
-$groupes=array(1);
+require '../includes/database.php';
+$db = Database::connect();
+$groupes=array(new groupe(1));
 if(!fonctions::access_check($groupes)){
   header('Location:admin.php');
 }
 ?>
 <!DOCTYPE html>
 <html>
-  <?php require '../includes/head.php'; ?>
+  <?php include '../includes/head.php'; ?>
   <body>
-    <?php require '../includes/header.php'; ?>
+    <?php include '../includes/header.php'; ?>
 
     <div class="container">
       <div class="row">
@@ -27,35 +31,34 @@ if(!fonctions::access_check($groupes)){
             </thead>
             <tbody>
               <?php
-                require '../includes/database.php';
-
-                $db = Database::connect();
-                $statement = $db->query("SELECT user.id AS idusr,login,libelle FROM user INNER JOIN groupe ON (groupe.id = user.groupe_id) ORDER BY user.id");
-                while ($item = $statement->fetch()) {
+                $users=user::getAllUsers();
+                
+                foreach($users as $user) {
+                  $group=new groupe($user['groupe_id']);
               ?>
-              <tr id=<?php echo "user-".$item['idusr']; ?>>
-                <th scope="row"><?php echo $item['idusr']; ?></th>
-                <td class="info"><?php echo $item['login']; ?></td>
-                <td class="update update-login" style="display: none;"><input type="text" value=<?php echo $item['login']; ?>></td>
-                <td class="info"><?php echo $item['libelle']; ?></td>
+              <tr id=<?php echo "user-".$user['id']; ?>>
+                <th scope="row"><?php echo $user['id']; ?></th>
+                <td class="info"><?php echo $user['login']; ?></td>
+                <td class="update update-login" style="display: none;"><input type="text" value=<?php echo $user['login']; ?>></td>
+                <td class="info"><?php echo $group->lib; ?></td>
                 <td class="update update-group" style="display: none;">
                   <select>
                     <?php
-                      $statement2 = $db->query("SELECT * FROM groupe");
-                      while ($grp = $statement2->fetch()) {
+                      $groupes=groupe::getAllGroupes();
+                      foreach($groupes as $groupe) {
                     ?>
-                      <option value=<?php echo $grp['id']; ?>><?php echo $grp['libelle']; ?></option>
+                      <option value=<?php echo $groupe['id']; ?>><?php echo $groupe['libelle']; ?></option>
                     <?php } ?>
                   </select>
                 </td>
                 <td>
-                  <button type="button" class="btn btn-warning info" onclick=<?php echo "update_user(".$item['idusr'].");"; ?>><i class="fas fa-users"></i> Modifier</button>
-                  <button href=<?php echo "#modal".$item['idusr']; ?> type="button" class="btn btn-danger" data-toggle="modal"><i class="fas fa-user-minus"></i> Supprimer</button>
+                  <button type="button" class="btn btn-warning info" onclick=<?php echo "update_user(".$user['id'].");"; ?>><i class="fas fa-users"></i> Modifier</button>
+                  <button href=<?php echo "#modal".$user['id']; ?> type="button" class="btn btn-danger" data-toggle="modal"><i class="fas fa-user-minus"></i> Supprimer</button>
                 </td>
               </tr>
 
               <!-- Modal HTML -->
-              <div id=<?php echo "modal".$item['idusr']; ?> class="modal fade">
+              <div id=<?php echo "modal".$user['id']; ?> class="modal fade">
               	<div class="modal-dialog modal-confirm">
               		<div class="modal-content">
               			<div class="modal-header">
@@ -85,7 +88,7 @@ if(!fonctions::access_check($groupes)){
       </div>
     </div>
 
-    <?php require '../includes/footer.php'; ?>
+    <?php include '../includes/footer.php'; ?>
     <script src="../script/updateuser.js"></script>
   </body>
 </html>

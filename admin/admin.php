@@ -1,14 +1,14 @@
 <?php
-require '../classes/groupe.php';
-require '../includes/fonctions.php';
-$groupes=groupe::getAllGroupes();
-fonctions::access_check($groupes);
+session_start();
+if(session_status()!=2){
+  header("Location:login.php");
+}
 ?>
 <!DOCTYPE html>
 <html>
-  <?php require '../includes/head.php'; ?>
+  <?php include '../includes/head.php'; ?>
   <body>
-    <?php require '../includes/header.php'; ?>
+    <?php include '../includes/header.php'; ?>
 
     <section class="container">
       <div class="row">
