@@ -41,7 +41,7 @@ if(!fonctions::access_check($groupes)){
                 <td class="info"><?php echo $user['login']; ?></td>
                 <td class="info"><?php echo $group->lib; ?></td>
                 <td>
-                  <button type="button" class="btn btn-warning info" onclick=<?php echo "update_user(".$user['id'].");"; ?>><i class="fas fa-users"></i> Modifier</button>
+                  <a type="button" class="btn btn-warning info" href=<?php echo 'updateuser.php?login='.$user['login']; ?>><i class="fas fa-users"></i> Modifier</a>
                   <button href=<?php echo "#modal".$user['id']; ?> type="button" class="btn btn-danger" data-toggle="modal"><i class="fas fa-user-minus"></i> Supprimer</button>
                 </td>
               </tr>
