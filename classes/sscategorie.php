@@ -38,7 +38,7 @@ class sscategorie{
      */
     static function updateSscategorie($sscat){
         global $db;
-        $db->query("UPDATE sscategorie SET libelle=$sscat->lib WHERE id=$sscat->id");
+        $db->query("UPDATE sscategorie SET libelle='$sscat->lib' WHERE id=$sscat->id");
     }
 
     /**

@@ -54,7 +54,7 @@ class produit{
      */
     static function updateProduit($user){
         global $db;
-        $db->query("UPDATE produit SET libelle=$user->lib,prix=$user->prix,image=$user->image,sscategorie_id=$user->sscat WHERE id=$id");
+        $db->query("UPDATE produit SET libelle='$user->lib',prix='$user->prix',image='$user->image',sscategorie_id='$user->sscat' WHERE id=$id");
     }
 
     /**

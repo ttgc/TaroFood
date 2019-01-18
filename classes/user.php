@@ -49,8 +49,35 @@ class user{
     static function getAllUsers(){
         global $db;
 
-        $req=$db->query("SELECT * FROM user ");
+        $req=$db->query("SELECT * FROM user");
         return $req->fetchAll();
+    }
+
+    /**
+     * Insère un user par rapport un objet $user
+     * @param user $user
+     */
+    static function insertUser($login,$mdp,$groupe){
+        global $db;
+        $db->query("INSERT INTO user VALUES(null,'$login','$mdp','$groupe')");
+    }
+
+    /**
+     * Update un user par rapport un objet $user
+     * @param user $user
+     */
+    static function updateUser($user){
+        global $db;
+        $db->query("UPDATE user SET login='$user->login',groupe_id='$user->groupe' WHERE id=$user->id");
+    }
+
+    /**
+     * Supprime le user avec l'id $id
+     * @param $id
+     */
+    static function deleteUser($id){
+        global $db;
+        $db->query("DELETE FROM user WHERE id=$id");
     }
 
     /**

@@ -19,11 +19,15 @@ if (!empty($_GET['login'])) {
 
 if (!empty($_POST)) {
   if ($update) {
-    $statement = $db->prepare("UPDATE user SET login = ?, groupe_id = ? WHERE id = ?");
-    $statement->execute(array($_POST['login'],$_POST['group'],$usr->id));
-  } else {
-    $statement = $db->prepare("INSERT INTO user (login,mdp,groupe_id) VALUES (?,?,?);");
-    $statement->execute(array($_POST['login'],password_hash($_POST['pwd'],PASSWORD_DEFAULT),$_POST['group']));
+    $user=user::getUser($_GET['login']);
+    $user->login=$_POST['login'];
+    $user->groupe=$_POST['group'];
+    user::updateUser($user);
+    if($user->id=$_SESSION['user']->id){
+      user::login($user->login,$user->mdp);
+    }
+  }else{
+    user::insertUser($_POST['login'],password_hash($_POST['pwd'],PASSWORD_DEFAULT),$_POST['groupe']);
   }
   header('Location:users.php');
 }
@@ -44,7 +48,7 @@ if (!empty($_POST)) {
             </div>
             <div class="form-group">
               <label for="group">Groupe</label>
-              <select class="form-control" name="group" id="group" <?php if ($update) {echo 'value='.$usr->groupe;} ?>>
+              <select class="form-control" name="groupe" id="groupe" <?php if ($update) {echo 'value='.$usr->groupe;} ?>>
                 <?php
                   $groupes=groupe::getAllGroupes();
                   foreach($groupes as $groupe) {

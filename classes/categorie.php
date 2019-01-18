@@ -35,7 +35,7 @@ class categorie{
      */
     static function updateCategorie($cat){
         global $db;
-        $db->query("UPDATE categorie SET libelle=$cat->lib WHERE id=$cat->id");
+        $db->query("UPDATE categorie SET libelle='$cat->lib' WHERE id=$cat->id");
     }
 
     /**
