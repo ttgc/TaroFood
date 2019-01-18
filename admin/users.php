@@ -32,25 +32,14 @@ if(!fonctions::access_check($groupes)){
             <tbody>
               <?php
                 $users=user::getAllUsers();
-                
+
                 foreach($users as $user) {
                   $group=new groupe($user['groupe_id']);
               ?>
               <tr id=<?php echo "user-".$user['id']; ?>>
                 <th scope="row"><?php echo $user['id']; ?></th>
                 <td class="info"><?php echo $user['login']; ?></td>
-                <td class="update update-login" style="display: none;"><input type="text" value=<?php echo $user['login']; ?>></td>
                 <td class="info"><?php echo $group->lib; ?></td>
-                <td class="update update-group" style="display: none;">
-                  <select>
-                    <?php
-                      $groupes=groupe::getAllGroupes();
-                      foreach($groupes as $groupe) {
-                    ?>
-                      <option value=<?php echo $groupe['id']; ?>><?php echo $groupe['libelle']; ?></option>
-                    <?php } ?>
-                  </select>
-                </td>
                 <td>
                   <button type="button" class="btn btn-warning info" onclick=<?php echo "update_user(".$user['id'].");"; ?>><i class="fas fa-users"></i> Modifier</button>
                   <button href=<?php echo "#modal".$user['id']; ?> type="button" class="btn btn-danger" data-toggle="modal"><i class="fas fa-user-minus"></i> Supprimer</button>
@@ -80,7 +69,6 @@ if(!fonctions::access_check($groupes)){
               </div>
               <?php
                 }
-                Database::disconnect();
               ?>
             </tbody>
           </table>
@@ -89,6 +77,5 @@ if(!fonctions::access_check($groupes)){
     </div>
 
     <?php include '../includes/footer.php'; ?>
-    <script src="../script/updateuser.js"></script>
   </body>
 </html>

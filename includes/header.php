@@ -1,3 +1,4 @@
+<?php require_once 'database.php'; ?>
 <header>
   <!-- Image and text -->
   <nav class="navbar navbar-light bg-light">
