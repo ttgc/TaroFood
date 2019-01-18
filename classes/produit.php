@@ -47,5 +47,23 @@ class produit{
         $req=$db->query("SELECT * FROM compo_menu WHERE menu_id=$menu_id");
         return $req->fetchAll();
     }
+
+    /**
+     * Met a jour un user avec un objet user
+     * @param user $user
+     */
+    static function updateProduit($user){
+        global $db;
+        $db->query("UPDATE produit SET libelle=$user->lib,prix=$user->prix,image=$user->image,sscategorie_id=$user->sscat WHERE id=$id");
+    }
+
+    /**
+     * Supprime le produit qui a l'id $id
+     * @param $id
+     */
+    static function deleteProduit($id){
+        global $db;
+        $db->query("DELETE FROM produit WHERE id=$id");
+    }
 }
 ?>

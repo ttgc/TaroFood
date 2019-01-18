@@ -31,5 +31,23 @@ class sscategorie{
         $req=$db->query("SELECT * FROM sscategorie WHERE categorie_id=$cat_id");
         return $req->fetchAll();
     }
+
+    /**
+     * Update une sous-categorie par rapport un objet $sscat
+     * @param sscategorie $sscat
+     */
+    static function updateSscategorie($sscat){
+        global $db;
+        $db->query("UPDATE sscategorie SET libelle=$sscat->lib WHERE id=$sscat->id");
+    }
+
+    /**
+     * Supprime la sous-categorie avec l'id $id
+     * @param $id
+     */
+    static function deleteSscategorie($id){
+        global $db;
+        $db->query("DELETE FROM sscategorie WHERE id=$id");
+    }
 }
 ?>
