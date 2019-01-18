@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(session_status()!=2){
+if(empty($_SESSION['user'])){
   header("Location:login.php");
 }
 ?>
