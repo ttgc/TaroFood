@@ -1,12 +1,12 @@
 <?php
 require '../classes/groupe.php';
 require '../classes/user.php';
-require '../includes/fonctions.php';
-require '../includes/database.php';
 require '../classes/categorie.php';
 require '../classes/sscategorie.php';
 require '../classes/produit.php';
-require '../classes/categorie.php';
+require '../classes/option.php';
+require '../includes/fonctions.php';
+require '../includes/database.php';
 $db = Database::connect();
 $groupes=array(new groupe(1));
 if(!fonctions::access_check($groupes)){
@@ -18,81 +18,109 @@ if(!fonctions::access_check($groupes)){
   <?php include '../includes/head.php'; ?>
   <body>
     <?php include '../includes/header.php'; ?>
-
     <div class="container">
       <div class="row">
-      </div>
-      <div class="row">
         <div class="col-12">
-          <table class="table">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Nom(Libelle)</th>
-                <th scope="col">Prix</th>
-                <th scope="col">Image</th>
-                <th scope="col">options</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-                $users=user::getAllUsers();
-                
-                foreach($users as $user) {
-                  $group=new groupe($user['groupe_id']);
-              ?>
-              <tr id=<?php echo "user-".$user['id']; ?>>
-                <th scope="row"><?php echo $user['id']; ?></th>
-                <td class="info"><?php echo $user['login']; ?></td>
-                <td class="update update-login" style="display: none;"><input type="text" value=<?php echo $user['login']; ?>></td>
-                <td class="info"><?php echo $group->lib; ?></td>
-                <td class="update update-group" style="display: none;">
-                  <select>
+            <div class="row">
+                <table class="table table-striped table-bordered" id="categories">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Libelle</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                     <?php
-                      $groupes=groupe::getAllGroupes();
-                      foreach($groupes as $groupe) {
+                        $categories = categorie::getAllCat();
+                        foreach($categories as $cat){
                     ?>
-                      <option value=<?php echo $groupe['id']; ?>><?php echo $groupe['libelle']; ?></option>
-                    <?php } ?>
-                  </select>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-warning info" onclick=<?php echo "update_user(".$user['id'].");"; ?>><i class="fas fa-users"></i> Modifier</button>
-                  <button href=<?php echo "#modal".$user['id']; ?> type="button" class="btn btn-danger" data-toggle="modal"><i class="fas fa-user-minus"></i> Supprimer</button>
-                </td>
-              </tr>
-
-              <!-- Modal HTML -->
-              <div id=<?php echo "modal".$user['id']; ?> class="modal fade">
-              	<div class="modal-dialog modal-confirm">
-              		<div class="modal-content">
-              			<div class="modal-header">
-              				<div class="icon-box">
-              					<i class="material-icons">&#xE5CD;</i>
-              				</div>
-              				<h4 class="modal-title">Are you sure?</h4>
-                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              			</div>
-              			<div class="modal-body">
-              				<p>Do you really want to delete these records? This process cannot be undone.</p>
-              			</div>
-              			<div class="modal-footer">
-              				<button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-              				<button type="button" class="btn btn-danger">Delete</button>
-              			</div>
-              		</div>
-              	</div>
-              </div>
-              <?php
-                }
-                Database::disconnect();
-              ?>
-            </tbody>
-          </table>
+                        <tr>
+                                <td><?php echo $cat['id']; ?></td>
+                                <td><?php echo $cat['libelle']; ?></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning info" onclick="display_subtable('#sscategories-<?php echo $cat['id']?>')"><i class="fas fa-users"></i> Modifier</button>
+                                    <button type="button" class="btn btn-danger info"><i class="fas fa-user-minus"></i> Supprimer</button>
+                                </td>
+                        </tr>
+                        <tr class="subtable" id="sscategories-<?php echo $cat['id']?>">
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <table class="table table-bordered" >
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Libelle</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                        $sscategories = sscategorie::getSSCat($cat['id']);
+                                        foreach($sscategories as $sscat){
+                                    ?>
+                                        <tr>
+                                            <td><?php echo $sscat['id']; ?></td>
+                                            <td><?php echo $sscat['libelle']; ?></td>
+                                            <td>
+                                                <button type="button" class="btn btn-warning info" onclick="display_subtable('#produits-<?php echo $cat['id']?>')"><i class="fas fa-users"></i> Modifier</button>
+                                                <button type="button" class="btn btn-danger info"><i class="fas fa-user-minus"></i> Supprimer</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="subtable" id="produits-<?php echo $sscat['id']?>">
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <table class="table table-bordered" >
+                                                    <thead class="thead-dark">
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Libelle</th>
+                                                            <th>Prix</th>
+                                                            <th>Image</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <?php
+                                                        $produits = produit::getProduitCat($sscat['id']);
+                                                        foreach($produits as $prd){
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $prd['id']; ?></td>
+                                                            <td><?php echo $prd['libelle']; ?></td>
+                                                            <td><?php echo $prd['prix']; ?></td>
+                                                            <td><?php echo $prd['image']; ?></td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-warning info"><i class="fas fa-users"></i> Modifier</button>
+                                                                <button type="button" class="btn btn-danger info"><i class="fas fa-user-minus"></i> Supprimer</button>
+                                                            </td>
+                                                        </tr>
+                                                    <?php
+                                                        }
+                                                    ?>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    <?php
+                                        }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    <?php
+                        }
+                    ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
       </div>
     </div>
-
     <?php include '../includes/footer.php'; ?>
+    <script src="../script/subtables.js"></script>
   </body>
 </html>

@@ -28,7 +28,7 @@ if(!empty($_SESSION['user'])){
             <h1 class="display-4 text-center">Connexion à l'administration</h1>
             <?php if (session_status()!=2 && !empty($_POST)) { ?>
             <div class="alert alert-danger text-center" role="alert">
-              <?php if(!empty($err)){
+              <?php if(isset($err)){
                 echo $err;
               }else{
                 echo "Login ou mot de passe incorrect !";
