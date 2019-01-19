@@ -16,7 +16,13 @@ if(!fonctions::access_check($groupes)){
     <?php include '../includes/header.php'; ?>
 
     <div class="container">
-      <div class="row">
+      <div class="jumbotron row" style="padding: 4px;">
+        <div class="col-9">
+          <h1>Gestion des utilisateurs</h1>
+        </div>
+        <div class="col-3 text-right align-self-center">
+          <a href="updateuser.php" type="button" class="btn btn-success"><i class="fas fa-user-plus"></i> Ajouter</a>
+        </div>
       </div>
       <div class="row">
         <div class="col-12">
@@ -41,8 +47,13 @@ if(!fonctions::access_check($groupes)){
                 <td class="info"><?php echo $user['login']; ?></td>
                 <td class="info"><?php echo $group->lib; ?></td>
                 <td>
-                  <a type="button" class="btn btn-warning info" href=<?php echo 'updateuser.php?login='.$user['login']; ?>><i class="fas fa-users"></i> Modifier</a>
-                  <button href=<?php echo "#modal".$user['id']; ?> type="button" class="btn btn-danger" data-toggle="modal"><i class="fas fa-user-minus"></i> Supprimer</button>
+                  <?php if ($user['id'] == $_SESSION['user']->id) { ?>
+                    <button type="button" class="btn btn-warning info" disabled><i class="fas fa-users"></i> Modifier</button>
+                    <button type="button" class="btn btn-danger" disabled><i class="fas fa-user-minus"></i> Supprimer</button>
+                  <?php } else { ?>
+                    <a type="button" class="btn btn-warning info" href=<?php echo 'updateuser.php?login='.$user['login']; ?>><i class="fas fa-users"></i> Modifier</a>
+                    <button href=<?php echo "#modal".$user['id']; ?> type="button" class="btn btn-danger" data-toggle="modal"><i class="fas fa-user-minus"></i> Supprimer</button>
+                  <?php } ?>
                 </td>
               </tr>
 
@@ -54,15 +65,18 @@ if(!fonctions::access_check($groupes)){
               				<div class="icon-box">
               					<i class="material-icons">&#xE5CD;</i>
               				</div>
-              				<h4 class="modal-title">Are you sure?</h4>
                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               			</div>
+                    <br/>
               			<div class="modal-body">
-              				<p>Do you really want to delete these records? This process cannot be undone.</p>
+                      <h4 class="modal-title">Êtes vous sûr ?</h4>
+                      <br/>
+              				<p>Voulez vous vraiment supprimer <?php echo $user['login'];?> ? Cette action ne pourra pas être annulée</p>
               			</div>
-              			<div class="modal-footer">
-              				<button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-              				<button type="button" class="btn btn-danger">Delete</button>
+                    <br/>
+              			<div class="modal-footer" style="justify-content: center;">
+              				<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
+              				<button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Supprimer</button>
               			</div>
               		</div>
               	</div>
