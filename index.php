@@ -5,7 +5,11 @@
 <?php
 require "includes/head2.php";
 require "includes/database.php";
-
+require "classes/menu.php";
+require "classes/categorie.php";
+require "classes/sscategorie.php";
+require "classes/produit.php";
+$db = Database::connect();
 ?>
 
 <body>
@@ -21,8 +25,10 @@ require "includes/database.php";
 
   <div class="container" id="divGeneral">
 
+
+    <!--  CATEGORIES NAVBAR -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#" onclick="openNav()">Navbar</a>               <!-- ouvre le menu a droite de la page -->
+      <a class="navbar-brand" href="#" onclick="openNav()">TaroFood</a>               <!-- ouvre le menu a droite de la page -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropDown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -31,21 +37,17 @@ require "includes/database.php";
           <li class="nav-item active">
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Nos menus</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Nos burgers</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Nos salades</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Nos boissons</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Nos desserts</a>
-          </li>
+          <?php
+          $statement = $db->query('SELECT * FROM categorie');
+          $categories = $statement->fetchAll();
+          foreach($categories as $category) {
+            if($category['id'] == '1') {
+              echo '<li role="presentation" class="active nav-item"><a class="nav-link" href="#'. $category['id'] . '"data-toggle="tab">' . $category['libelle'] . '</a></li>';
+            }else {
+              echo '<li role="presentation" class="nav-item"><a class="nav-link" href="#' . $category['id'] . '"data-toggle="tab">' . $category['libelle'] . '</a></li>';
+            }
+          }
+          ?>
         </ul>
 
         <ul class="navbar-nav ml-auto">
@@ -76,76 +78,42 @@ require "includes/database.php";
               <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
               <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
               <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+
             </ol>
+
+            <!-- CAROUSEL INNER -->
             <div class="carousel-inner">
-              <div class="carousel-item active">
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="card text-center bg-light border-dark mb-3" style="width: 18rem;">
-                      <img src="images/b1.png" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary"> Commander </a>
+              <?php
+              $menus = menu::getAllMenus();
+              $cpt = 1;
+              foreach ($menus as $menu) {
+                if ($cpt%3 == 1) {
+                  ?>
+                  <div class=" carousel-item <?php if($cpt <= 3) {echo 'active';} ?>">
+                    <div class="row">
+                      <?php
+                    }
+                    ?>
+                    <div class="col-md-4">
+                      <div class="card text-center bg-light border-dark mb-3" style="width: 18rem;">
+                        <img src="images/b1.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title"> <?php echo $menu['libelle']; ?> </h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          <a href="#" class="btn btn-primary"> Commander </a>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="card text-center bg-light border-dark mb-3" style="width: 18rem;">
-                      <img src="images/b2.png" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary"> Commander </a>
-                      </div>
+                    <?php
+                    if($cpt%3 == 0) {
+                      ?>
                     </div>
                   </div>
-                  <div class="col-md-4">
-                    <div class="card text-center bg-light border-dark mb-3" style="width: 18rem;">
-                      <img src="images/b3.png" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary"> Commander </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="card text-center bg-light border-dark mb-3" style="width: 18rem;">
-                      <img src="images/b1.png" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary"> Commander </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="card text-center bg-light border-dark mb-3" style="width: 18rem;">
-                      <img src="images/b1.png" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary"> Commander </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="card text-center bg-light border-dark mb-3" style="width: 18rem;">
-                      <img src="images/b1.png" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary"> Commander </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                  <?php
+                }
+                $cpt++;
+              }
+              ?>
               <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
@@ -159,269 +127,89 @@ require "includes/database.php";
         </div>
       </div>
 
-      <hr/>
+    <hr/>
 
-      <!--  SIDES CATEGORY -->
-      <div class="jumbotron jumbotron-fluid bg-dark">
-        <div class="container">
-          <a class="nav-link" href="#"><h2>Nos Accompagnements </h2> </a>
+      <!--  TEST ALL CATEGORIES AT ONCE  -->
 
-          <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-              <li data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li>
-              <li data-target="#carouselExampleIndicators2" data-slide-to="1"></li>
-              <li data-target="#carouselExampleIndicators2" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="card text-center bg-light border-dark" style="width: 18rem;">
-                      <img src="images/b1.png" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary"> Commander </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="card text-center bg-light border-dark" style="width: 18rem;">
-                      <img src="images/b1.png" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary"> Commander </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="card text-center bg-light border-dark" style="width: 18rem;">
-                      <img src="images/b1.png" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary"> Commander </a>
-                      </div>
-                    </div>
+<h2> TESTING OUT</h2>
+
+<?php
+$cpt2 = 1;
+$cptCarousel = 1;
+foreach($categories as $category) {
+?>
+
+            <div class="jumbotron jumbotron-fluid bg-dark">
+              <div class="container">
+                <a class=" display-4 nav-link" href="#"><h2> Nos <?php echo $category['libelle'] ?> </h2> </a>
+                <div id="carouselExampleIndicators5" class="carousel slide" data-ride="carousel">
+                  <ol class="carousel-indicators">
+                    <li data-target="<?php echo '#carouselExampleIndicators'.'$cptCarousel'?>" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+
+                  </ol>
+
+                  <!-- CAROUSEL INNER -->
+                  <div class="carousel-inner">
+                    <?php
+                    $sscategories = sscategorie::getSSCat($cpt2);
+                    $cpt = 1;
+                    foreach ($sscategories as $sscategorie) {
+                      if ($cpt%3 == 1) {
+                        ?>
+                        <div class=" carousel-item <?php if($cpt <= 3) {echo 'active';} ?>">
+                          <div class="row">
+                            <?php
+                          }
+                          ?>
+                          <div class="col-md-4">
+                            <div class="card text-center bg-light border-dark mb-3" style="width: 18rem;">
+                              <img src="images/b1.png" class="card-img-top" alt="...">
+                              <div class="card-body">
+                                <h5 class="card-title"> <?php echo $sscategorie['libelle']; ?> </h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="btn btn-primary"> Commander </a>
+                              </div>
+                            </div>
+                          </div>
+                          <?php
+                          if($cpt%3 == 0) {
+                            ?>
+                          </div>
+                        </div>
+                        <?php
+                      }
+                      $cpt++;
+                    }
+                    ?>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators5" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators5" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                    </a>
                   </div>
                 </div>
               </div>
-              <div class="carousel-item">
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="card text-center bg-light border-dark" style="width: 18rem;">
-                      <img src="images/b1.png" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary"> Commander </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="card text-center bg-light border-dark" style="width: 18rem;">
-                      <img src="images/b1.png" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary"> Commander </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="card text-center bg-light border-dark" style="width: 18rem;">
-                      <img src="images/b1.png" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary"> Commander </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
             </div>
-          </div>
-        </div>
+
+  <?php
+$cptCarousel++;
+$cpt2++;
+}
+  ?>
+
+
+        <?php
+        require "script/script.js";
+        require "includes/footer.php";
+        ?>
+
       </div>
+    </body>
 
 
-      <hr/>
-
-      <!--  DRINK CATEGORY -->
-      <div class="jumbotron jumbotron-fluid bg-light border-dark">
-        <div class="container">
-          <a class="nav-link" href="#"><h2>Nos Boissons </h2> </a>
-
-          <div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-              <li data-target="#carouselExampleIndicators3" data-slide-to="0" class="active"></li>
-              <li data-target="#carouselExampleIndicators3" data-slide-to="1"></li>
-              <li data-target="#carouselExampleIndicators3" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <div class="row">
-                  <div class="col-md-4">
-                    <img class="d-block w-100" src="images/b1.png" alt="">
-                  </div>
-                  <div class="col-md-4">
-                    <img class="d-block w-100" src="images/b2.png" alt="">
-                  </div>
-                  <div class="col-md-4">
-                    <img class="d-block w-100" src="images/b3.png" alt="">
-                  </div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="row">
-                  <div class="col-md-4">
-                    <img class="d-block w-100" src="images/b4.png" alt="">
-                  </div>
-                  <div class="col-md-4">
-                    <img class="d-block w-100" src="images/b5.png" alt="">
-                  </div>
-                  <div class="col-md-4">
-                    <img class="d-block w-100" src="images/b6.png" alt="">
-                  </div>
-                </div>
-              </div>
-              <a class="carousel-control-prev" href="#carouselExampleIndicators3" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleIndicators3" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <hr/>
-
-      <!--  DESSERT CATEGORY -->
-      <div class="jumbotron jumbotron-fluid bg-light border-dark">
-        <div class="container">
-          <a class="nav-link" href="#"><h2>Nos Desserts </h2> </a>
-
-          <div id="carouselExampleIndicators4" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-              <li data-target="#carouselExampleIndicators4" data-slide-to="0" class="active"></li>
-              <li data-target="#carouselExampleIndicators4" data-slide-to="1"></li>
-              <li data-target="#carouselExampleIndicators4" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <div class="row">
-                  <div class="col-md-4">
-                    <img class="d-block w-100" src="images/b1.png" alt="">
-                  </div>
-                  <div class="col-md-4">
-                    <img class="d-block w-100" src="images/b2.png" alt="">
-                  </div>
-                  <div class="col-md-4">
-                    <img class="d-block w-100" src="images/b3.png" alt="">
-                  </div>
-                </div>  </div>
-                <div class="carousel-item">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <img class="d-block w-100" src="images/b4.png" alt="">
-                    </div>
-                    <div class="col-md-4">
-                      <img class="d-block w-100" src="images/b5.png" alt="">
-                    </div>
-                    <div class="col-md-4">
-                      <img class="d-block w-100" src="images/b6.png" alt="">
-                    </div>
-                  </div>
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators4" role="button" data-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators4" role="button" data-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="sr-only">Next</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <hr/>
-
-
-        <!--  PIZZA CATEGORY -->
-        <div class="jumbotron jumbotron-fluid bg-light border-dark">
-          <div class="container">
-            <a class="nav-link" href="#"><h2>Nos Pizzas </h2> </a>
-
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-              <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-              </ol>
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <img class="d-block w-100" src="images/b1.png" alt="">
-                    </div>
-                    <div class="col-md-4">
-                      <img class="d-block w-100" src="images/b2.png" alt="">
-                    </div>
-                    <div class="col-md-4">
-                      <img class="d-block w-100" src="images/b3.png" alt="">
-                    </div>
-                  </div>  </div>
-                  <div class="carousel-item">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <img class="d-block w-100" src="images/b4.png" alt="">
-                      </div>
-                      <div class="col-md-4">
-                        <img class="d-block w-100" src="images/b5.png" alt="">
-                      </div>
-                      <div class="col-md-4">
-                        <img class="d-block w-100" src="images/b6.png" alt="">
-                      </div>
-                    </div>
-                  </div>
-                  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-          <?php
-          require "script/script.js";
-          require "includes/footer.php";
-          ?>
-
-        </div>
-      </body>
-
-
-      </html>
+    </html>
