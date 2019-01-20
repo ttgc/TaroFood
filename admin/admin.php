@@ -1,4 +1,5 @@
 <?php
+require_once '../classes/user.php';
 session_start();
 if(empty($_SESSION['user'])){
   header("Location:login.php");
