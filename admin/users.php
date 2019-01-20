@@ -8,6 +8,10 @@ $groupes=array(new groupe(1));
 if(!fonctions::access_check($groupes)){
   header('Location:admin.php');
 }
+
+if (!empty($_POST) && !empty($_POST['delete'])) {
+  user::deleteUser($_POST['delete']);
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -76,7 +80,7 @@ if(!fonctions::access_check($groupes)){
                     <br/>
               			<div class="modal-footer" style="justify-content: center;">
               				<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
-              				<button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Supprimer</button>
+              				<button type="submit" class="btn btn-danger" data-dismiss="modal" onclick=<?php echo "$.post('users.php',{delete:".$user['id']."},function(){location.reload();});"; ?>><i class="fas fa-trash-alt"></i> Supprimer</button>
               			</div>
               		</div>
               	</div>
