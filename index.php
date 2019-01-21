@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-
+<meta charset="UTF-8">
 
 <?php
 require "includes/head2.php";
@@ -64,6 +64,7 @@ $db = Database::connect();
             </div>
           </li>
         </ul>
+          </div>
       </nav>
 
       <br/>
@@ -127,80 +128,89 @@ $db = Database::connect();
         </div>
       </div>
 
-    <hr/>
+      <hr/>
 
       <!--  TEST ALL CATEGORIES AT ONCE  -->
 
-<h2> TESTING OUT</h2>
+      <h2> TESTING OUT</h2>
 
-<?php
-$cpt2 = 1;
-$cptCarousel = 1;
-foreach($categories as $category) {
-?>
+      <?php
+      $cpt2 = 1;
+      $cptCarousel = 1;
 
-            <div class="jumbotron jumbotron-fluid bg-dark">
-              <div class="container">
-                <a class=" display-4 nav-link" href="#"><h2> Nos <?php echo $category['libelle'] ?> </h2> </a>
-                <div id="carouselExampleIndicators5" class="carousel slide" data-ride="carousel">
-                  <ol class="carousel-indicators">
-                    <li data-target="<?php echo '#carouselExampleIndicators'.'$cptCarousel'?>" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      foreach($categories as $category) {
+        $nbrCat = sizeof($categories);
+        ?>
+        <div class="jumbotron jumbotron-fluid bg-dark">
+          <div class="container">
+            <a class=" display-4 nav-link" href="#"><h2> Nos <?php echo $category['libelle'] ?> </h2> </a>
+            <div id="<?php echo 'carouselExampleIndicators'.$cptCarousel ?>" class="carousel slide" data-ride="carousel">
+              <ol class="carousel-indicators">
+                <li data-target="<?php echo '#carouselExampleIndicators'.$cptCarousel ?>" data-slide-to="0" class="active"></li>
+                <li data-target="<?php echo '#carouselExampleIndicators'.$cptCarousel ?>" data-slide-to="1"></li>
+                <li data-target="<?php echo '#carouselExampleIndicators'.$cptCarousel ?>" data-slide-to="3"></li>
+              </ol>
 
-                  </ol>
+              <!-- CAROUSEL INNER -->
+              <div class="carousel-inner">
+                <?php
+                $sscategories = sscategorie::getSSCat($cpt2);
+                $cpt = 1;
 
-                  <!-- CAROUSEL INNER -->
-                  <div class="carousel-inner">
-                    <?php
-                    $sscategories = sscategorie::getSSCat($cpt2);
-                    $cpt = 1;
-                    foreach ($sscategories as $sscategorie) {
-                      if ($cpt%3 == 1) {
-                        ?>
-                        <div class=" carousel-item <?php if($cpt <= 3) {echo 'active';} ?>">
-                          <div class="row">
-                            <?php
-                          }
-                          ?>
-                          <div class="col-md-4">
-                            <div class="card text-center bg-light border-dark mb-3" style="width: 18rem;">
-                              <img src="images/b1.png" class="card-img-top" alt="...">
-                              <div class="card-body">
-                                <h5 class="card-title"> <?php echo $sscategorie['libelle']; ?> </h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary"> Commander </a>
-                              </div>
-                            </div>
-                          </div>
+                foreach ($sscategories as $sscategorie) {
+                  $nbrSsCat = sizeof($sscategories);
+
+
+                    if ($cpt%3 == 1) {
+                      ?>
+                      <div class=" carousel-item <?php if($cpt <= 3) {echo 'active';} ?>">
+                        <div class="row">
                           <?php
-                          if($cpt%3 == 0) {
-                            ?>
+                        }
+                        ?>
+                        <div class="col-md-4">
+                          <div class="card text-center bg-light border-dark mb-3" style="width: 18rem;">
+                            <img src="images/b1.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title"> <?php echo $sscategorie['libelle']; ?> </h5>
+                              <p class="card-text"> </p>
+                              <a href="#" class="btn btn-primary"> Commander </a>
+                            </div>
                           </div>
                         </div>
                         <?php
-                      }
-                      $cpt++;
+                        if($cpt%3 == 0) {
+                          ?>
+                        </div>
+                      </div>
+
+                      <?php
                     }
-                    ?>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators5" role="button" data-slide="prev">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators5" role="button" data-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="sr-only">Next</span>
-                    </a>
-                  </div>
+                    $cpt++;
+                  }
+                  ?>
+
+                  <a class="carousel-control-prev" href="<?php echo '#carouselExampleIndicators'.$cptCarousel ?>" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="<?php echo '#carouselExampleIndicators'.$cptCarousel ?>" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                  <?php
+
+                  ?>
                 </div>
               </div>
             </div>
+          </div>
 
-  <?php
-$cptCarousel++;
-$cpt2++;
-}
-  ?>
+          <?php
+          $cptCarousel++;
+          $cpt2++;
+        }
+        ?>
 
 
         <?php
