@@ -33,12 +33,22 @@ class sscategorie{
     }
 
     /**
+     * Insère une sous-categorie
+     * @param $lib
+     * @param $cat
+     */
+    static function insertSSCat($lib,$cat){
+        global $db;
+        $db->query("INSERT INTO sscategorie VALUES(null, '$lib',$cat)");
+    }
+
+    /**
      * Update une sous-categorie par rapport un objet $sscat
      * @param sscategorie $sscat
      */
-    static function updateSscategorie($sscat){
+    static function updateSSCat($sscat){
         global $db;
-        $db->query("UPDATE sscategorie SET libelle='$sscat->lib' WHERE id=$sscat->id");
+        $db->query("UPDATE sscategorie SET libelle='$sscat->lib',categorie_id=$sscat->cat WHERE id=$sscat->id");
     }
 
     /**

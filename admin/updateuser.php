@@ -14,6 +14,8 @@ if (!empty($_GET['login'])) {
   $usr=user::getUser($_GET['login']);
   if ($usr != null) {
     $update = true;
+  }else{
+    header('Location:users.php');
   }
 }
 
@@ -21,7 +23,7 @@ if (!empty($_POST)) {
   if ($update) {
     $user=user::getUser($_GET['login']);
     $user->login=$_POST['login'];
-    $user->groupe=$_POST['group'];
+    $user->groupe=$_POST['groupe'];
     user::updateUser($user);
     if($user->id=$_SESSION['user']->id){
       user::login($user->login,$user->mdp);

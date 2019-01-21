@@ -60,5 +60,32 @@ class option{
         global $db;
         $db->query("DELETE FROM compo_produit WHERE option_id=$opt_id AND produit_id=$prod_id");
     }
+
+    /**
+     * Insère une option
+     * @param $lib
+     */
+    static function insertOption($lib){
+        global $db;
+        $db->query("INSERT INTO option_produit VALUES(null, '$lib')");
+    }
+
+    /**
+     * Update une option par rapport un objet $opt
+     * @param option $opt
+     */
+    static function updateOption($opt){
+        global $db;
+        $db->query("UPDATE option_produit SET libelle='$opt->lib' WHERE id=$opt->id");
+    }
+
+    /**
+     * Supprime la option avec l'id $id
+     * @param $id
+     */
+    static function deleteOption($id){
+        global $db;
+        $db->query("DELETE FROM option_produit WHERE id=$id");
+    }
 }
 ?>

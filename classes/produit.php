@@ -49,12 +49,21 @@ class produit{
     }
 
     /**
-     * Met a jour un user avec un objet user
+     * Insère une categorie
+     * @param $lib
+     */
+    static function insertProduit($lib,$prix,$image,$sscat){
+        global $db;
+        $db->query("INSERT INTO produit VALUES(null, '$lib',$prix,'$image',$sscat)");
+    }
+
+    /**
+     * Met a jour un user ç partir un objet user
      * @param user $user
      */
     static function updateProduit($user){
         global $db;
-        $db->query("UPDATE produit SET libelle='$user->lib',prix='$user->prix',image='$user->image',sscategorie_id='$user->sscat' WHERE id=$id");
+        $db->query("UPDATE produit SET libelle='$user->lib',prix='$user->prix',image='$user->image',sscategorie_id='$user->sscat' WHERE id=$user->id");
     }
 
     /**
