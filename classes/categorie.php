@@ -30,10 +30,19 @@ class categorie{
     }
 
     /**
+     * Insère une categorie
+     * @param $lib
+     */
+    static function insertCat($lib){
+        global $db;
+        $db->query("INSERT INTO categorie VALUES(null, '$lib')");
+    }
+
+    /**
      * Update une categorie par rapport un objet $cat
      * @param categorie $cat
      */
-    static function updateCategorie($cat){
+    static function updateCat($cat){
         global $db;
         $db->query("UPDATE categorie SET libelle='$cat->lib' WHERE id=$cat->id");
     }
