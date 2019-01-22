@@ -19,7 +19,7 @@ if(!empty($_POST)){
             if(empty($_POST['id'])){
                 produit::insertProduit($_POST['lib'],$_POST['prix'],$_POST['image'],$_POST['sscat']);
             }else{
-                if(!empty($_FILES['image'])){
+                if(!empty($_FILES['image']['name'])){
                     $file_url="images/".basename($_FILES['image']['name']);
                     move_uploaded_file($_FILES['image']['tmp_name'], "../".$file_url);
                 }else{
