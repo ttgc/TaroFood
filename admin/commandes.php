@@ -1,6 +1,7 @@
 <?php
 require '../classes/groupe.php';
 require '../classes/user.php';
+require '../classes/commande.php';
 require '../includes/fonctions.php';
 require '../includes/database.php';
 $db = Database::connect();
@@ -33,55 +34,27 @@ if(!fonctions::access_check($groupes)){
                 <th scope="col">ID</th>
                 <th scope="col">Date création</th>
                 <th scope="col">Date livraison</th>
+                <th scope="col">Type</th>
+                <th scope="col">État</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
               <?php
-                $users=user::getAllUsers();
+                $commandes=commande::getAllCommande();
 
-                foreach($users as $user) {
-                  $group=new groupe($user['groupe_id']);
+                foreach($commandes as $cmd) {
               ?>
-              <tr id=<?php echo "user-".$user['id']; ?>>
-                <th scope="row"><?php echo $user['id']; ?></th>
-                <td class="info"><?php echo $user['login']; ?></td>
-                <td class="info"><?php echo $group->lib; ?></td>
+              <tr id=<?php echo "cmd-".$cmd['id']; ?>>
+                <th scope="row"><?php echo $cmd['id']; ?></th>
+                <td class="info"><?php echo $cmd['datetime_creation']; ?></td>
+                <td class="info"><?php echo $cmd['datetime_livraison']; ?></td>
+                <td class="info"><?php echo $cmd['type']; ?></td>
+                <td class="info"><?php echo $cmd['etat']; ?></td>
                 <td>
-                  <?php if ($user['id'] == $_SESSION['user']->id) { ?>
-                    <button type="button" class="btn btn-warning info" disabled><i class="fas fa-users"></i> Modifier</button>
-                    <button type="button" class="btn btn-danger" disabled><i class="fas fa-user-minus"></i> Supprimer</button>
-                  <?php } else { ?>
-                    <a type="button" class="btn btn-warning info" href=<?php echo 'updateuser.php?login='.$user['login']; ?>><i class="fas fa-users"></i> Modifier</a>
-                    <button href=<?php echo "#modal".$user['id']; ?> type="button" class="btn btn-danger" data-toggle="modal"><i class="fas fa-user-minus"></i> Supprimer</button>
-                  <?php } ?>
+                  <a type="button" class="btn btn-info info" href=<?php echo 'commandview.php?id='.$cmd['id']; ?>><i class="fas fa-eye"></i> Détails</a>
                 </td>
               </tr>
-
-              <!-- Modal HTML -->
-              <div id=<?php echo "modal".$user['id']; ?> class="modal fade">
-              	<div class="modal-dialog modal-confirm">
-              		<div class="modal-content">
-              			<div class="modal-header">
-              				<div class="icon-box">
-              					<i class="material-icons">&#xE5CD;</i>
-              				</div>
-                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              			</div>
-                    <br/>
-              			<div class="modal-body">
-                      <h4 class="modal-title">Êtes vous sûr ?</h4>
-                      <br/>
-              				<p>Voulez vous vraiment supprimer <?php echo $user['login'];?> ? Cette action ne pourra pas être annulée</p>
-              			</div>
-                    <br/>
-              			<div class="modal-footer" style="justify-content: center;">
-              				<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
-              				<button type="submit" class="btn btn-danger" data-dismiss="modal" onclick=<?php echo "$.post('users.php',{delete:".$user['id']."},function(){location.reload();});"; ?>><i class="fas fa-trash-alt"></i> Supprimer</button>
-              			</div>
-              		</div>
-              	</div>
-              </div>
               <?php
                 }
               ?>

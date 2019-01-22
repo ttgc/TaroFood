@@ -18,7 +18,7 @@ class commande{
      */
      function __construct($id){
         global $db;
-        
+
         $req=$db->query("SELECT * FROM commande WHERE id=$id");
         $data=$req->fetch();
 
@@ -43,7 +43,7 @@ class commande{
      */
     static function getCommande($client_id=null, $type_id=null, $etat_id=null){
         global $db;
-        
+
         $sql = "SELECT * FROM commande WHERE client_id=$client_id";
         $arr=array("client_id" => $client_id,"type_id" => $type_id,"etat_id" => $etat_id);
         foreach($arr as $k => $a){
@@ -58,6 +58,18 @@ class commande{
 
         $req=$db->query($sql);
         return $req->fetchAll();
+    }
+
+    static function getAllCommande() {
+      global $db;
+
+      $sql="SELECT commande.id AS id,adresse_rue,adresse_cp,adresse_ville,datetime_livraison,datetime_creation,total,commentaire,nom,prenom,email,telephone,etat_commande.libelle as etat,type_commande.libelle as type
+            FROM ((commande INNER JOIN type_commande ON (type_commande.id = commande.type_id))
+            INNER JOIN etat_commande ON (etat_commande.id = commande.etat_id))
+            INNER JOIN client ON (client.id = commande.client_id)";
+
+      $req=$db->query($sql);
+      return $req->fetchAll();
     }
 }
 ?>
