@@ -22,7 +22,7 @@ if(!fonctions::access_check($groupes)){
           <h1>Gestion des menus</h1>
         </div>
         <div class="col-7 text-right align-self-center">
-          <a href="" class="btn btn-success"><i class="fas fa-plus"></i> Menu</a>
+          <a href="menus_process.php?mode=insert&type=menu" class="btn btn-success"><i class="fas fa-plus"></i> Menu</a>
         </div>
       </div>
       <div class="row">

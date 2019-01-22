@@ -16,6 +16,13 @@ if(!fonctions::access_check($groupes)){
 if(!empty($_POST)){
     if(empty($_POST['id'])){
         menu::insertMenu($_POST['lib'],$_POST['prix']);
+        $menu_id=$db->lastInsertId();
+        if(!empty($_POST['produits'])){
+            $prds=$_POST['produits'];
+            foreach($prds as $prd){
+                produit::lierProduit($prd,$menu_id);
+            }
+        }
     }else{
         $menu=new menu($_POST['id']);
         $menu->lib=$_POST['lib'];
