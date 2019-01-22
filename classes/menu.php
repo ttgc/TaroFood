@@ -30,5 +30,33 @@ class menu{
         $req=$db->query("SELECT * FROM menu");
         return $req->fetchAll();
     }
+
+    /**
+     * Insère un menu
+     * @param string $lib
+     * @param int $prix
+     */
+    static function insertMenu($lib,$prix){
+        global $db;
+        $db->query("INSERT INTO menu VALUES(null, '$lib','$prix')");
+    }
+
+    /**
+     * Met a jour un menu à partir un objet menu
+     * @param menu $menu
+     */
+    static function updateMenu($menu){
+        global $db;
+        $db->query("UPDATE menu SET libelle='$menu->lib',prix='$menu->prix' WHERE id=$menu->id");
+    }
+
+    /**
+     * Supprime le menu qui a l'id $id
+     * @param $id
+     */
+    static function deleteMenu($id){
+        global $db;
+        $db->query("DELETE FROM menu WHERE id=$id");
+    }
 }
 ?>

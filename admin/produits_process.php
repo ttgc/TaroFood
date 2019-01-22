@@ -34,7 +34,7 @@ if(!empty($_POST)){
                 if(!empty($_POST['options'])){
                     $opts=$_POST['options'];
                     foreach($opts as $opt){
-                        option::lierOPtion($opt['id'],$prd->id);
+                        option::lierOption($opt,$prd->id);
                     }
                 }
             }
@@ -70,7 +70,9 @@ if(!empty($_POST)){
     }
     header('Location:produits.php');
 }
-
+if(empty($_GET['mode']) || empty($_GET['type'])){
+    header('Location:produits.php');
+}
 $type=$_GET['type'];
 $function=$_GET['mode'].ucfirst($type);
 
@@ -157,14 +159,17 @@ if($_GET['mode']=="delier"){
                                     $cats=categorie::getAllCat();
                                     foreach($cats as $cat) {
                                     ?>
-                                    <optgroup label="<?php echo $cat['libelle']?>"></optgroup>
+                                    <optgroup label="<?php echo $cat['libelle']?>">
                                     <?php
                                         $sscats=sscategorie::getSSCat($cat['id']);
                                         foreach($sscats as $sscat) {
-                                ?>
+                                        ?>
                                             <option value=<?php echo $sscat['id']; ?> <?php if(!empty($prd)){if($prd->sscat==$sscat['id']){echo "selected";}} ?>><?php echo $sscat['libelle']; ?></option>
-                                <?php 
+                                        <?php 
                                         }
+                                    ?>
+                                    </optgroup>
+                                    <?php
                                     } 
                                 ?>
                             </select>

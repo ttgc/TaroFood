@@ -49,8 +49,11 @@ class produit{
     }
 
     /**
-     * Insère une categorie
-     * @param $lib
+     * Insère un produit
+     * @param string $lib
+     * @param int $prix
+     * @param file $image
+     * @param sscategorie $sscat
      */
     static function insertProduit($lib,$prix,$image,$sscat){
         global $db;
@@ -58,7 +61,7 @@ class produit{
     }
 
     /**
-     * Met a jour un user ç partir un objet user
+     * Met a jour un user à partir un objet user
      * @param user $user
      */
     static function updateProduit($user){
@@ -73,6 +76,27 @@ class produit{
     static function deleteProduit($id){
         global $db;
         $db->query("DELETE FROM produit WHERE id=$id");
+    }
+
+    /**
+     * Lie un produit à un menu avec une certaine quantité
+     * @param int $menu_id
+     * @param int $produit_id
+     * @param int $qte
+     */
+    static function lierProduit($prd_id,$menu_id){
+        global $db;
+        $req=$db->query("INSERT INTO compo_menu VALUES('$menu_id','$prd_id')");
+    }
+
+    /**
+     * Délie un produit d'un menu
+     * @param int $menu_id
+     * @param int $produit_id
+     */
+    static function delierProduit($prd_id,$menu_id){
+        global $db;
+        $req=$db->query("DELETE FROM compo_menu WHERE menu_id=$menu_id AND produit_id=$prd_id");
     }
 }
 ?>
