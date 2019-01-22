@@ -43,7 +43,7 @@ if(empty($_SESSION['user'])){
               <h5 class="card-title">Menus</h5>
               <p class="card-text">Accéder au panel de gestion des menus</p>
               <div class="text-center">
-                <a href="menu.php" class="btn btn-primary">Pannel menu</a>
+                <a href="menus.php" class="btn btn-primary">Pannel menu</a>
               </div>
             </div>
           </div>
