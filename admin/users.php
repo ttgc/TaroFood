@@ -20,7 +20,7 @@ if (!empty($_POST) && !empty($_POST['delete'])) {
     <?php include '../includes/header.php'; ?>
 
     <div class="container">
-      <div class="jumbotron row" style="padding: 4px;">
+      <div class="jumbotron row" style="padding: 30px;">
         <div class="col-9">
           <h1>Gestion des utilisateurs</h1>
         </div>

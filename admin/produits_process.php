@@ -19,7 +19,7 @@ if(!empty($_POST)){
             if(empty($_POST['id'])){
                 produit::insertProduit($_POST['lib'],$_POST['prix'],$_POST['image'],$_POST['sscat']);
             }else{
-                if(!empty($_FILES)){
+                if(!empty($_FILES['image'])){
                     $file_url="images/".basename($_FILES['image']['name']);
                     move_uploaded_file($_FILES['image']['tmp_name'], "../".$file_url);
                 }else{
@@ -31,6 +31,12 @@ if(!empty($_POST)){
                 $prd->image=$file_url;
                 $prd->sscat=$_POST['sscat'];
                 produit::updateProduit($prd);
+                if(!empty($_POST['options'])){
+                    $opts=$_POST['options'];
+                    foreach($opts as $opt){
+                        option::lierOPtion($opt['id'],$prd->id);
+                    }
+                }
             }
         break;
         case 'sscategorie':
@@ -79,10 +85,9 @@ if($_GET['mode']=="delier"){
 ?>
 <!DOCTYPE html>
 <html>
-  <?php include '../includes/head.php'; ?>
+  <?php include '../includes/head2.php'; ?>
   <body>
     <?php include '../includes/header.php'; ?>
-
     <div class="container">
       <div class="row">
         <div class="col-4 offset-4">
@@ -164,6 +169,34 @@ if($_GET['mode']=="delier"){
                                 ?>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label for="options[]">Options</label>
+                            <select class="form-control selectpicker" name="options[]" id="options" title="Choisissez les options" multiple>
+                                <?php
+                                    if(!empty($prd)){
+                                        $prd_opt=option::getOptions($prd->id);
+                                        $arr=array();
+                                        foreach($prd_opt as $po){
+                                            array_push($arr,$po['option_id']);
+                                        }
+                                    }
+                                    $opts=option::getAllOptions();
+                                    foreach($opts as $opt) {
+                                        if(!empty($prd_opt)){
+                                            if(!in_array($opt['id'],$arr)){
+                                                ?>
+                                                    <option value=<?php echo $opt['id']; ?>><?php echo $opt['libelle']; ?></option>
+                                                <?php
+                                            }
+                                        }else{
+                                            ?>
+                                                <option value=<?php echo $opt['id']; ?>><?php echo $opt['libelle']; ?></option>
+                                            <?php
+                                        }
+                                    } 
+                                ?>
+                            </select>
+                        </div>
                     <?php
                 break;
                 case 'option':
@@ -189,7 +222,6 @@ if($_GET['mode']=="delier"){
     </div>
 
     <?php include '../includes/footer.php'; ?>
-    <script src="../script/checkpwduser.js"></script>
   </body>
 </html>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>

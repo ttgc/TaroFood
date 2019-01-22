@@ -50,8 +50,8 @@ if(!fonctions::access_check($groupes)){
                         <td><?php echo $cat['id']; ?></td>
                         <td><?php echo $cat['libelle']; ?></td>
                         <td>
-                            <a href="produits_process.php?mode=update&type=categorie&id=<?php echo $cat['id']; ?>" class="btn btn-primary info"><i class="fas fa-pen"></i></a>
-                            <a href="produits_process.php?mode=delete&type=categorie&id=<?php echo $cat['id']; ?>" class="btn btn-danger info"><i class="fas fa-trash"></i></a>
+                            <a href="produits_process.php?mode=update&type=categorie&id=<?php echo $cat['id']; ?>" class="btn btn-primary"><i class="fas fa-pen"></i></a>
+                            <a href="produits_process.php?mode=delete&type=categorie&id=<?php echo $cat['id']; ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                         </td>
                 </tr>
                 <tr id="sscategories-<?php echo $cat['id']?>" style="display:none">
@@ -75,8 +75,8 @@ if(!fonctions::access_check($groupes)){
                                     <td><?php echo $sscat['id']; ?></td>
                                     <td><?php echo $sscat['libelle']; ?></td>
                                     <td>
-                                        <a href="produits_process.php?mode=update&type=sscategorie&id=<?php echo $sscat['id']; ?>" class="btn btn-primary info"><i class="fas fa-pen"></i></a>
-                                        <a href="produits_process.php?mode=delete&type=sscategorie&id=<?php echo $sscat['id']; ?>" class="btn btn-danger info"><i class="fas fa-trash"></i></a>
+                                        <a href="produits_process.php?mode=update&type=sscategorie&id=<?php echo $sscat['id']; ?>" class="btn btn-primary"><i class="fas fa-pen"></i></a>
+                                        <a href="produits_process.php?mode=delete&type=sscategorie&id=<?php echo $sscat['id']; ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 <tr id="produits-<?php echo $sscat['id']?>" style="display:none">
@@ -104,8 +104,8 @@ if(!fonctions::access_check($groupes)){
                                                     <td><?php echo $prd['prix']; ?></td>
                                                     <td><?php echo $prd['image']; ?></td>
                                                     <td>
-                                                        <a href="produits_process.php?mode=update&type=produit&id=<?php echo $prd['id']; ?>" class="btn btn-primary info"><i class="fas fa-pen"></i></a>
-                                                        <a href="produits_process.php?mode=delete&type=produit&id=<?php echo $prd['id']; ?>" class="btn btn-danger info"><i class="fas fa-trash"></i></a>
+                                                        <a href="produits_process.php?mode=update&type=produit&id=<?php echo $prd['id']; ?>" class="btn btn-primary"><i class="fas fa-pen"></i></a>
+                                                        <a href="produits_process.php?mode=delete&type=produit&id=<?php echo $prd['id']; ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                                     </td>
                                                 </tr>
                                                 <tr id="options-<?php echo $prd['id']?>" style="display:none">
@@ -130,7 +130,7 @@ if(!fonctions::access_check($groupes)){
                                                                     <td><?php echo $opt->id; ?></td>
                                                                     <td><?php echo $opt->lib; ?></td>
                                                                     <td>
-                                                                        <a href="produits_process.php?mode=delier&type=option&id=<?php echo $prd['id']; ?>&opt_id=<?php echo $opt->id; ?>" class="btn btn-danger"><i class="fas fa-minus"></i></a>
+                                                                        <a href="produits_process.php?mode=delier&type=option&id=<?php echo $prd['id']; ?>&opt_id=<?php echo $opt->id; ?>" class="btn btn-danger"><i class="fas fa-unlink"></i></a>
                                                                     </td>
                                                                 </tr>
                                                             <?php
