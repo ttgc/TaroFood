@@ -11,10 +11,15 @@ require "classes/sscategorie.php";
 require "classes/produit.php";
 $db = Database::connect();
 
-if(empty($_GET['id'])){
+if(empty($_GET)){
   header('Location:index.php');
 }else{
-  $cat=new categorie($_GET['id']);
+  if(!empty($_GET['id'])){
+    $cat=new categorie($_GET['id']);
+  }
+  if(!empty($_GET['sscat'])){
+    $sscat=new sscategorie($_GET['sscat']);
+  }
 }
 
 ?>
@@ -23,12 +28,15 @@ if(empty($_GET['id'])){
   <div class="container" id="idGeneral">
       <?php
       include 'includes/navbar_cat.php';
-      if(!empty($_GET['sscat'])){
-        $sscat=new sscategorie($_GET['sscat']);
+      if(!empty($sscat)){
+        $sscats=array($sscat);
+      }else{
+        $sscats=sscategorie::getSSCat($cat->id);
       }
-      $sscats=sscategorie::getSSCat($cat->id);
       foreach($sscats as $ssc){
-        $sscat=new sscategorie($ssc['id']);
+        if(empty($_GET['sscat'])){
+          $sscat=new sscategorie($ssc['id']);
+        }
       ?>
       <div class="jumbotron jumbotron-fluid bg-dark">
         <div class="container">
