@@ -18,6 +18,10 @@ if (empty($_GET) || empty($_GET['id'])) {
 }
 
 $cmd = new commande($_GET['id']);
+if (!empty($_POST)) {
+  $cmd->updateState($_POST['state']);
+  $cmd->etat_id = $_POST['state'];
+}
 $client = new client($cmd->client_id);
 $type = new type($cmd->type_id);
 $etat = new etat($cmd->etat_id);
@@ -31,7 +35,10 @@ $etat = new etat($cmd->etat_id);
 
     <div class="container">
       <div class="jumbotron row" style="padding: 30px;">
-        <div class="col-9">
+        <div class="col-3 align-self-center">
+          <a type="button" class="btn btn-success" href="commandes.php"><i class="fas fa-arrow-alt-circle-left"></i> Retour</a>
+        </div>
+        <div class="col-6 text-center">
           <h1>Gestion des commandes</h1>
         </div>
         <div class="col-3 text-right align-self-center">
@@ -124,19 +131,19 @@ $etat = new etat($cmd->etat_id);
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">État de la commande</h5>
-              <table class="table">
-                <thead class="thead-dark">
-                  <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Libelle</th>
-                    <th scope="col">Mettre à jour</th>
-                  </tr>
-                </thead>
-                <tbody class="table-valign-center">
-                  <tr>
-                    <th scope="row"><?php echo $etat->id; ?></th>
-                    <td class="info">
-                      <form method="post">
+              <form method="post">
+                <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Libelle</th>
+                      <th scope="col">Mettre à jour</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-valign-center">
+                    <tr>
+                      <th scope="row"><?php echo $etat->id; ?></th>
+                      <td class="info">
                         <select name="state" class="form-control">
                           <?php
                             $states=etat::getAllEtat();
@@ -147,13 +154,13 @@ $etat = new etat($cmd->etat_id);
                             }
                           ?>
                         </select>
-                      </form>
-                    <td class="info">
-                      <button type="submit" class="btn btn-success"><i class="fas fa-sync-alt"></i> Mettre à jour</button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                      <td class="info">
+                        <button type="submit" class="btn btn-success"><i class="fas fa-sync-alt"></i> Mettre à jour</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
             </div>
           </div>
         </div>

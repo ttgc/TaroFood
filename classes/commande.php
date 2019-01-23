@@ -36,6 +36,12 @@ class commande{
         $this->client_id=$data['client_id'];
     }
 
+    function updateState($idstate) {
+      global $db;
+
+      $db->query("UPDATE commande SET etat_id = $idstate WHERE id = $this->id");
+    }
+
     /**
      * Renvoie toutes les commandes du client $client_id, avec le type $type_id, et l'etat $etat_id
      * @param $client_id
