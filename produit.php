@@ -10,64 +10,29 @@ require "classes/categorie.php";
 require "classes/sscategorie.php";
 require "classes/produit.php";
 $db = Database::connect();
+
+if(empty($_GET['id'])){
+  header('Location:index.php');
+}else{
+  $cat=new categorie($_GET['id']);
+}
+
 ?>
 
 <body>
   <div class="container" id="idGeneral">
-
-    <!--  CATEGORIES NAVBAR -->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#" onclick="openNav()">TaroFood</a>               <!-- ouvre le menu a droite de la page -->
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropDown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <?php
-          $statement = $db->query('SELECT * FROM categorie');
-          $categories = $statement->fetchAll();
-          foreach($categories as $category) {
-            if($category['id'] == '1') {
-              echo '<li role="presentation" class="active nav-item"><a class="nav-link" href="#'. $category['id'] . '"data-toggle="tab">' . $category['libelle'] . '</a></li>';
-            }else {
-              echo '<li role="presentation" class="nav-item"><a class="nav-link" href="#' . $category['id'] . '"data-toggle="tab">' . $category['libelle'] . '</a></li>';
-            }
-          }
-          ?>
-        </ul>
-
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item dropleft ml-auto">
-            <div>
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                0,00 € <i class="fas fa-shopping-cart"></i>
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Canard boiteux</a>
-                <a class="dropdown-item" href="#">Another giraffe</a>
-                <a class="dropdown-item" href="#">A hord of platipus</a>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-
-
-
-
-
+      <?php
+      include 'includes/navbar_cat.php';
+      $sscats=sscategorie::getSSCat($cat->id);
+      foreach($sscats as $sscat){
+      ?>
       <div class="jumbotron jumbotron-fluid bg-dark">
         <div class="container">
-          <a class="display-4 nav-link" href="#"> <h2> Nos Menus </h2> </a>
+          <a class="display-4 nav-link" href="#"> <h2><?php echo $sscat['libelle']; ?></h2> </a>
 
           <!-- CAROUSEL INNER -->
           <?php
-          $produits = produit::getProduitCat(1);
+          $produits = produit::getProduitCat($sscat['id']);
           $cpt = 1;
           foreach ($produits as $produit) {
             if($cpt%3 == 1){
@@ -99,14 +64,11 @@ $db = Database::connect();
           </div>
         </div>
       </div>
-
       <?php
+      }
       require "script/script.js";
       require "includes/footer.php";
       ?>
-
     </div>
-
   </body>
-
   </html>
