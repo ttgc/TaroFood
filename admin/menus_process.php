@@ -56,7 +56,7 @@ if($_GET['mode']=="delier"){
 ?>
 <!DOCTYPE html>
 <html>
-  <?php include '../includes/head2.php'; ?>
+  <?php include '../includes/head.php'; ?>
   <body>
     <?php include '../includes/header.php'; ?>
     <div class="container">
