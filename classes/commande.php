@@ -11,6 +11,7 @@ class commande{
     public $comm;
     public $etat_id;
     public $type_id;
+    public $client_id;
 
     /**
      * Constructeur de la classe commande
@@ -32,6 +33,7 @@ class commande{
         $this->comm=$data['commentaire'];
         $this->etat_id=$data['etat_id'];
         $this->type_id=$data['type_id'];
+        $this->client_id=$data['client_id'];
     }
 
     /**
