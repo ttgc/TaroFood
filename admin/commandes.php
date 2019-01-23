@@ -35,6 +35,7 @@ if(!fonctions::access_check($groupes)){
                 <th scope="col">Date création</th>
                 <th scope="col">Date livraison</th>
                 <th scope="col">Type</th>
+                <th scope="col">Paiement</th>
                 <th scope="col">État</th>
                 <th scope="col">Action</th>
               </tr>
@@ -50,6 +51,7 @@ if(!fonctions::access_check($groupes)){
                 <td class="info"><?php echo $cmd['datetime_creation']; ?></td>
                 <td class="info"><?php echo $cmd['datetime_livraison']; ?></td>
                 <td class="info"><?php echo $cmd['type']; ?></td>
+                <td class="info"><?php echo $cmd['paiement']; ?></td>
                 <td class="info"><?php echo $cmd['etat']; ?></td>
                 <td>
                   <a type="button" class="btn btn-info info" href=<?php echo 'commandview.php?id='.$cmd['id']; ?>><i class="fas fa-eye"></i> Détails</a>
