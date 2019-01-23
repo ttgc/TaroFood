@@ -10,7 +10,7 @@ class option{
      */
      function __construct($id){
         global $db;
-        
+
         $req=$db->query("SELECT * FROM option_produit WHERE id=$id");
         $data=$req->fetch();
 
@@ -24,7 +24,7 @@ class option{
      */
     static function getAllOptions(){
         global $db;
-        
+
         $req=$db->query("SELECT * FROM option_produit");
         return $req->fetchAll();
     }
@@ -36,7 +36,7 @@ class option{
      */
     static function getOptions($prod_id){
         global $db;
-        
+
         $req=$db->query("SELECT * FROM compo_produit WHERE produit_id=$prod_id");
         return $req->fetchAll();
     }

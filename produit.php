@@ -43,11 +43,11 @@ if(empty($_GET['id'])){
               ?>
               <div class="col-md-4">
                 <div class="card text-center bg-light border-dark mb-3" style="width: 18rem;">
-                
+
                   <img src="<?php echo $produit['image']; ?>" class="card-img-top" alt="...">
                   <div class="card-body">
-                    <h5 class="card-title"> <?php echo $produit['libelle']; ?> </h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <h4 class="card-title"> <?php echo $produit['libelle']; ?> </h4>
+                    <h5 class="card-text"> <?php echo $produit['prix']; ?>€</h5>
                     <a href="#" class="btn btn-primary"> Commander </a>
                   </div>
                 </div>
@@ -62,7 +62,7 @@ if(empty($_GET['id'])){
           }
           ?>
           </div>
-        </div>
+    
       </div>
       <?php
       }

@@ -9,6 +9,9 @@ require "classes/menu.php";
 require "classes/categorie.php";
 require "classes/sscategorie.php";
 require "classes/produit.php";
+
+
+
 $db = Database::connect();
 ?>
 
@@ -27,46 +30,10 @@ $db = Database::connect();
 
 
     <!--  CATEGORIES NAVBAR -->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#" onclick="openNav()">TaroFood</a>               <!-- ouvre le menu a droite de la page -->
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropDown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <?php
-          $statement = $db->query('SELECT * FROM categorie');
-          $categories = $statement->fetchAll();
-          foreach($categories as $category) {
-            if($category['id'] == '1') {
-              echo '<li role="presentation" class="active nav-item"><a class="nav-link" href="#'. $category['id'] . '"data-toggle="tab">' . $category['libelle'] . '</a></li>';
-            }else {
-              echo '<li role="presentation" class="nav-item"><a class="nav-link" href="#' . $category['id'] . '"data-toggle="tab">' . $category['libelle'] . '</a></li>';
-            }
-          }
-          ?>
-        </ul>
 
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item dropleft ml-auto">
-            <div>
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                0,00 € <i class="fas fa-shopping-cart"></i>
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Canard boiteux</a>
-                <a class="dropdown-item" href="#">Another giraffe</a>
-                <a class="dropdown-item" href="#">A hord of platipus</a>
-              </div>
-            </div>
-          </li>
-        </ul>
-          </div>
-      </nav>
-
+<?php
+include "includes/navbar_cat.php";
+ ?>
       <br/>
 
       <!--  MENU CATEGORY -->
@@ -132,7 +99,7 @@ $db = Database::connect();
 
       <!--  TEST ALL CATEGORIES AT ONCE  -->
 
-      <h2> TESTING OUT</h2>
+      <h2> CATEGORIES</h2>
 
       <?php
       $cpt2 = 1;
@@ -215,11 +182,14 @@ $db = Database::connect();
 
         <?php
         require "script/script.js";
-        require "includes/footer.php";
         ?>
 
       </div>
-    </body>
 
+      <?php
+      require "includes/footer.php";
+      ?>
+
+    </body>
 
     </html>
