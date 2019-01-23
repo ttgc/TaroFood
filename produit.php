@@ -23,16 +23,20 @@ if(empty($_GET['id'])){
   <div class="container" id="idGeneral">
       <?php
       include 'includes/navbar_cat.php';
+      if(!empty($_GET['sscat'])){
+        $sscat=new sscategorie($_GET['sscat']);
+      }
       $sscats=sscategorie::getSSCat($cat->id);
-      foreach($sscats as $sscat){
+      foreach($sscats as $ssc){
+        $sscat=new sscategorie($ssc['id']);
       ?>
       <div class="jumbotron jumbotron-fluid bg-dark">
         <div class="container">
-          <a class="display-4 nav-link" href="#"> <h2><?php echo $sscat['libelle']; ?></h2> </a>
+          <h2><?php echo $sscat->lib; ?></h2> </a>
 
           <!-- CAROUSEL INNER -->
           <?php
-          $produits = produit::getProduitCat($sscat['id']);
+          $produits = produit::getProduitCat($sscat->id);
           $cpt = 1;
           foreach ($produits as $produit) {
             if($cpt%3 == 1){
