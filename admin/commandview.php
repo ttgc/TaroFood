@@ -5,6 +5,7 @@ require '../classes/commande.php';
 require '../classes/client.php';
 require '../classes/type.php';
 require '../classes/etat.php';
+require '../classes/paiement.php';
 require '../includes/fonctions.php';
 require '../includes/database.php';
 $db = Database::connect();
@@ -25,6 +26,7 @@ if (!empty($_POST)) {
 $client = new client($cmd->client_id);
 $type = new type($cmd->type_id);
 $etat = new etat($cmd->etat_id);
+$paiement = new paiement($cmd->paiement_id);
 ?>
 
 <!DOCTYPE html>
@@ -57,6 +59,7 @@ $etat = new etat($cmd->etat_id);
                     <th scope="col">ID</th>
                     <th scope="col">Date création</th>
                     <th scope="col">Date livraison</th>
+                    <th scope="col">Paiement</th>
                     <th scope="col">Total</th>
                     <th scope="col">Addresse</th>
                   </tr>
@@ -66,6 +69,7 @@ $etat = new etat($cmd->etat_id);
                     <th scope="row"><?php echo $_GET['id']; ?></th>
                     <td class="info"><?php echo $cmd->date_creation; ?></td>
                     <td class="info"><?php echo $cmd->date_livraison; ?></td>
+                    <td class="info"><?php echo $paiement->lib; ?></td>
                     <td class="info"><?php echo $cmd->total; ?></td>
                     <td class="info"><?php echo $cmd->rue.'<br/>'.$cmd->cp.' '.$cmd->ville; ?></td>
                   </tr>
