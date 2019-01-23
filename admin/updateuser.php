@@ -14,6 +14,9 @@ if (!empty($_GET['login'])) {
   $usr=user::getUser($_GET['login']);
   if ($usr != null) {
     $update = true;
+    if ($usr->id == $_SESSION['user']->id) {
+      header('Location:users.php');
+    }
   }else{
     header('Location:users.php');
   }
