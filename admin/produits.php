@@ -51,9 +51,35 @@ if(!fonctions::access_check($groupes)){
                         <td><?php echo $cat['libelle']; ?></td>
                         <td>
                             <a href="produits_process.php?mode=update&type=categorie&id=<?php echo $cat['id']; ?>" class="btn btn-primary"><i class="fas fa-pen"></i></a>
-                            <a href="produits_process.php?mode=delete&type=categorie&id=<?php echo $cat['id']; ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                            <button href=<?php echo "#modal".$cat['id']; ?> class="btn btn-danger" type="button" data-toggle="modal"><i class="fas fa-trash"></i></button>
                         </td>
                 </tr>
+
+                <!-- Modal HTML -->
+                <div id=<?php echo "modal".$cat['id']; ?> class="modal fade">
+                	<div class="modal-dialog modal-confirm">
+                		<div class="modal-content">
+                			<div class="modal-header">
+                				<div class="icon-box">
+                					<i class="material-icons">&#xE5CD;</i>
+                				</div>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                			</div>
+                      <br/>
+                			<div class="modal-body">
+                        <h4 class="modal-title">Êtes vous sûr ?</h4>
+                        <br/>
+                				<p>Voulez vous vraiment supprimer <?php echo $cat['libelle'];?> ? Cette action ne pourra pas être annulée</p>
+                			</div>
+                      <br/>
+                			<div class="modal-footer" style="justify-content: center;">
+                				<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
+                				<a type="button" href="produits_process.php?mode=delete&type=categorie&id=<?php echo $cat['id']; ?>" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Supprimer</a>
+                			</div>
+                		</div>
+                	</div>
+                </div>
+
                 <tr id="sscategories-<?php echo $cat['id']?>" style="display:none">
                     <td colspan="4">
                         <table class="table" >
@@ -76,9 +102,35 @@ if(!fonctions::access_check($groupes)){
                                     <td><?php echo $sscat['libelle']; ?></td>
                                     <td>
                                         <a href="produits_process.php?mode=update&type=sscategorie&id=<?php echo $sscat['id']; ?>" class="btn btn-primary"><i class="fas fa-pen"></i></a>
-                                        <a href="produits_process.php?mode=delete&type=sscategorie&id=<?php echo $sscat['id']; ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                        <button href=<?php echo "#modal".$cat['id']."-".$sscat['id']; ?> class="btn btn-danger" type="button" data-toggle="modal"><i class="fas fa-trash"></i></button>
                                     </td>
                                 </tr>
+
+                                <!-- Modal HTML -->
+                                <div id=<?php echo "modal".$cat['id']."-".$sscat['id']; ?> class="modal fade">
+                                	<div class="modal-dialog modal-confirm">
+                                		<div class="modal-content">
+                                			<div class="modal-header">
+                                				<div class="icon-box">
+                                					<i class="material-icons">&#xE5CD;</i>
+                                				</div>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                			</div>
+                                      <br/>
+                                			<div class="modal-body">
+                                        <h4 class="modal-title">Êtes vous sûr ?</h4>
+                                        <br/>
+                                				<p>Voulez vous vraiment supprimer <?php echo $sscat['libelle'];?> ? Cette action ne pourra pas être annulée</p>
+                                			</div>
+                                      <br/>
+                                			<div class="modal-footer" style="justify-content: center;">
+                                				<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
+                                				<a type="button" href="produits_process.php?mode=delete&type=sscategorie&id=<?php echo $sscat['id']; ?>" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Supprimer</a>
+                                			</div>
+                                		</div>
+                                	</div>
+                                </div>
+
                                 <tr id="produits-<?php echo $sscat['id']?>" style="display:none">
                                     <td colspan="4">
                                         <table class="table" >
@@ -98,16 +150,42 @@ if(!fonctions::access_check($groupes)){
                                                 foreach($produits as $prd){
                                             ?>
                                                 <tr>
-                                                    <td><button class ="btn subtable-btn" id="options-<?php echo $prd['id']?>"><i class="fas fa-plus"></i></button></td> 
+                                                    <td><button class ="btn subtable-btn" id="options-<?php echo $prd['id']?>"><i class="fas fa-plus"></i></button></td>
                                                     <td><?php echo $prd['id']; ?></td>
                                                     <td><?php echo $prd['libelle']; ?></td>
                                                     <td><?php echo $prd['prix']; ?></td>
                                                     <td><?php echo $prd['image']; ?></td>
                                                     <td>
                                                         <a href="produits_process.php?mode=update&type=produit&id=<?php echo $prd['id']; ?>" class="btn btn-primary"><i class="fas fa-pen"></i></a>
-                                                        <a href="produits_process.php?mode=delete&type=produit&id=<?php echo $prd['id']; ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                                        <button href=<?php echo "#modal".$cat['id']."-".$sscat['id']."-".$prd['id']; ?> class="btn btn-danger" type="button" data-toggle="modal"><i class="fas fa-trash"></i></button>
                                                     </td>
                                                 </tr>
+
+                                                <!-- Modal HTML -->
+                                                <div id=<?php echo "modal".$cat['id']."-".$sscat['id']."-".$prd['id']; ?> class="modal fade">
+                                                	<div class="modal-dialog modal-confirm">
+                                                		<div class="modal-content">
+                                                			<div class="modal-header">
+                                                				<div class="icon-box">
+                                                					<i class="material-icons">&#xE5CD;</i>
+                                                				</div>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                			</div>
+                                                      <br/>
+                                                			<div class="modal-body">
+                                                        <h4 class="modal-title">Êtes vous sûr ?</h4>
+                                                        <br/>
+                                                				<p>Voulez vous vraiment supprimer <?php echo $prd['libelle'];?> ? Cette action ne pourra pas être annulée</p>
+                                                			</div>
+                                                      <br/>
+                                                			<div class="modal-footer" style="justify-content: center;">
+                                                				<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
+                                                				<a type="button" href="produits_process.php?mode=delete&type=produit&id=<?php echo $prd['id']; ?>" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Supprimer</a>
+                                                			</div>
+                                                		</div>
+                                                	</div>
+                                                </div>
+
                                                 <tr id="options-<?php echo $prd['id']?>" style="display:none">
                                                     <td colspan="6">
                                                         <table class="table" >
@@ -126,7 +204,7 @@ if(!fonctions::access_check($groupes)){
                                                                 $opt=new option($option['option_id']);
                                                             ?>
                                                                 <tr>
-                                                                    <td></td> 
+                                                                    <td></td>
                                                                     <td><?php echo $opt->id; ?></td>
                                                                     <td><?php echo $opt->lib; ?></td>
                                                                     <td>
