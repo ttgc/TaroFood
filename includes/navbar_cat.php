@@ -5,7 +5,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
-        
+
           <?php
           $categories = categorie::getAllCat();
           foreach($categories as $category) {
@@ -26,6 +26,8 @@
                 <a class="dropdown-item" href="#">Canard boiteux</a>
                 <a class="dropdown-item" href="#">Another giraffe</a>
                 <a class="dropdown-item" href="#">A hord of platipus</a>
+                <hr/>
+                <a class="dropdown-item" href="#"><i class="fas fa-trash"></i> Vider le panier</a>
               </div>
             </div>
           </li>
