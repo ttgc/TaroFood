@@ -3,6 +3,10 @@ margin-top: 20px;
 margin-bottom: 20px;
 }
 
+.table-valign-center th, .table-valign-center td {
+	vertical-align: middle;
+}
+
 .modal-confirm {
 	color: #636363;
 	width: 400px;

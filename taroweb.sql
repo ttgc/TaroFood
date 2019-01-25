@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 23 Janvier 2019 à 07:41
+-- Généré le :  Mer 23 Janvier 2019 à 15:58
 -- Version du serveur :  5.7.14
 -- Version de PHP :  7.0.10
 
@@ -83,20 +83,16 @@ CREATE TABLE `commande` (
   `commentaire` text,
   `etat_id` int(11) NOT NULL,
   `type_id` int(11) NOT NULL,
-  `client_id` int(11) NOT NULL
+  `client_id` int(11) NOT NULL,
+  `paiement_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
 --
--- Structure de la table `commande_custom`
+-- Contenu de la table `commande`
 --
 
-CREATE TABLE `commande_custom` (
-  `custom_produit_id` int(11) NOT NULL,
-  `commande_id` int(11) NOT NULL,
-  `qte` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+INSERT INTO `commande` (`id`, `adresse_rue`, `adresse_cp`, `adresse_ville`, `datetime_livraison`, `datetime_creation`, `total`, `commentaire`, `etat_id`, `type_id`, `client_id`, `paiement_id`) VALUES
+(1, '5 rue ma bite sur ton front', '87000', 'suce ma queue', '2019-01-23 09:35:16', '2019-01-21 08:07:24', 10, 'j\'aime les gros chibres', 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -421,69 +417,8 @@ INSERT INTO `compo_menu` (`menu_id`, `produit_id`) VALUES
 
 CREATE TABLE `compo_produit` (
   `produit_id` int(11) NOT NULL,
-  `option_id` int(11) NOT NULL,
-  `valeur_base` varchar(255) DEFAULT NULL
+  `option_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `compo_produit`
---
-
-INSERT INTO `compo_produit` (`produit_id`, `option_id`, `valeur_base`) VALUES
-(36, 1, 'Poivre'),
-(36, 37, 'Saignant'),
-(36, 38, '1'),
-(36, 39, '1'),
-(37, 1, 'Bicky'),
-(37, 10, '1'),
-(37, 37, 'Saignant'),
-(37, 38, '1'),
-(37, 39, '1'),
-(38, 1, 'Bicky'),
-(38, 4, '1'),
-(38, 37, 'Saignant'),
-(38, 38, '1'),
-(38, 39, '1'),
-(39, 1, 'Poivre'),
-(39, 37, 'Saignant'),
-(39, 38, '1'),
-(39, 39, '1'),
-(40, 1, 'Poivre'),
-(40, 10, '1'),
-(40, 37, 'Saignant'),
-(40, 38, '1'),
-(40, 39, '1'),
-(41, 1, 'Poivre'),
-(41, 4, '1'),
-(41, 37, 'Saignant'),
-(41, 38, '1'),
-(41, 39, '1'),
-(42, 1, 'Blanche'),
-(42, 38, '1'),
-(42, 39, '1'),
-(42, 41, '1'),
-(43, 1, 'Bicky'),
-(43, 38, '1'),
-(43, 39, '1'),
-(43, 42, '1'),
-(44, 1, 'Bicky'),
-(44, 38, '1'),
-(44, 39, '1'),
-(44, 42, '2'),
-(45, 1, 'BBQ'),
-(45, 11, '1'),
-(45, 37, 'Saignant'),
-(45, 39, '1'),
-(46, 14, '1'),
-(46, 39, '1'),
-(47, 10, '1'),
-(47, 14, '1'),
-(48, 4, '1'),
-(48, 8, '1'),
-(49, 4, '1'),
-(49, 37, 'Saignant'),
-(50, 11, '1'),
-(50, 37, 'Saignant');
 
 -- --------------------------------------------------------
 
@@ -493,26 +428,11 @@ INSERT INTO `compo_produit` (`produit_id`, `option_id`, `valeur_base`) VALUES
 
 CREATE TABLE `custom_produit` (
   `id` int(11) NOT NULL,
-  `produit_id` int(11) NOT NULL
+  `produit_id` int(11) NOT NULL,
+  `commande_id` int(11) NOT NULL,
+  `valeur_id` int(11) NOT NULL,
+  `qte` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `custom_produit`
---
-
-INSERT INTO `custom_produit` (`id`, `produit_id`) VALUES
-(1, 36),
-(2, 37),
-(3, 38),
-(4, 39),
-(5, 40),
-(6, 41),
-(7, 45),
-(8, 46),
-(9, 47),
-(10, 48),
-(11, 49),
-(12, 50);
 
 -- --------------------------------------------------------
 
@@ -525,6 +445,16 @@ CREATE TABLE `etat_commande` (
   `libelle` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `etat_commande`
+--
+
+INSERT INTO `etat_commande` (`id`, `libelle`) VALUES
+(1, 'Remise au client'),
+(2, 'pret'),
+(3, 'en preparation'),
+(4, 'Pas commencée');
+
 -- --------------------------------------------------------
 
 --
@@ -536,133 +466,13 @@ CREATE TABLE `groupe` (
   `libelle` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
 --
--- Structure de la table `liste_valeur`
+-- Contenu de la table `groupe`
 --
 
-CREATE TABLE `liste_valeur` (
-  `custom_produit_id` int(11) NOT NULL,
-  `valeur_id` int(11) NOT NULL,
-  `qte` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `liste_valeur`
---
-
-INSERT INTO `liste_valeur` (`custom_produit_id`, `valeur_id`, `qte`) VALUES
-(1, 1, 1),
-(1, 38, 1),
-(1, 39, 1),
-(1, 37, 1),
-(2, 1, 1),
-(2, 38, 1),
-(2, 39, 1),
-(2, 10, 1),
-(2, 37, 1),
-(3, 1, 1),
-(3, 38, 1),
-(3, 39, 1),
-(3, 4, 1),
-(3, 37, 1),
-(4, 1, 1),
-(4, 38, 2),
-(4, 39, 2),
-(4, 37, 2),
-(5, 1, 1),
-(5, 38, 2),
-(5, 39, 2),
-(5, 10, 2),
-(5, 37, 2),
-(6, 1, 1),
-(6, 38, 2),
-(6, 39, 2),
-(6, 4, 2),
-(6, 37, 2),
-(1, 1, 1),
-(1, 38, 1),
-(1, 39, 1),
-(1, 37, 1),
-(2, 1, 1),
-(2, 38, 1),
-(2, 39, 1),
-(2, 10, 1),
-(2, 37, 1),
-(3, 1, 1),
-(3, 38, 1),
-(3, 39, 1),
-(3, 4, 1),
-(3, 37, 1),
-(4, 1, 1),
-(4, 38, 2),
-(4, 39, 2),
-(4, 37, 2),
-(5, 1, 1),
-(5, 38, 2),
-(5, 39, 2),
-(5, 10, 2),
-(5, 37, 2),
-(6, 1, 1),
-(6, 38, 2),
-(6, 39, 2),
-(6, 4, 2),
-(6, 37, 2),
-(1, 1, 1),
-(1, 38, 1),
-(1, 39, 1),
-(1, 37, 1),
-(2, 1, 1),
-(2, 38, 1),
-(2, 39, 1),
-(2, 10, 1),
-(2, 37, 1),
-(3, 1, 1),
-(3, 38, 1),
-(3, 39, 1),
-(3, 4, 1),
-(3, 37, 1),
-(4, 1, 1),
-(4, 38, 2),
-(4, 39, 2),
-(4, 37, 2),
-(5, 1, 1),
-(5, 38, 2),
-(5, 39, 2),
-(5, 10, 2),
-(5, 37, 2),
-(6, 1, 1),
-(6, 38, 2),
-(6, 39, 2),
-(6, 4, 2),
-(6, 37, 2),
-(7, 1, 1),
-(7, 38, 1),
-(7, 39, 1),
-(7, 41, 1),
-(8, 1, 1),
-(8, 38, 1),
-(8, 39, 1),
-(8, 42, 1),
-(9, 1, 1),
-(9, 38, 2),
-(9, 39, 2),
-(9, 42, 2),
-(7, 1, 1),
-(7, 11, 1),
-(7, 39, 1),
-(7, 37, 1),
-(8, 14, 1),
-(8, 39, 1),
-(9, 14, 1),
-(9, 10, 1),
-(10, 4, 1),
-(10, 8, 1),
-(11, 37, 1),
-(11, 4, 1),
-(12, 37, 1),
-(12, 11, 1);
+INSERT INTO `groupe` (`id`, `libelle`) VALUES
+(1, 'admin'),
+(2, 'manager');
 
 -- --------------------------------------------------------
 
@@ -760,6 +570,7 @@ INSERT INTO `option_produit` (`id`, `libelle`) VALUES
 (51, 'Falafelle'),
 (52, 'Chedar'),
 (53, 'Pain de mie'),
+(54, 'Salade'),
 (55, 'Carotte'),
 (56, 'Choux'),
 (57, 'Chicon'),
@@ -775,6 +586,15 @@ CREATE TABLE `paiement` (
   `id` int(11) NOT NULL,
   `libelle` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `paiement`
+--
+
+INSERT INTO `paiement` (`id`, `libelle`) VALUES
+(1, 'Carte Bleue'),
+(2, 'Espèces'),
+(3, 'Chèque restaurant');
 
 -- --------------------------------------------------------
 
@@ -795,114 +615,114 @@ CREATE TABLE `produit` (
 --
 
 INSERT INTO `produit` (`id`, `libelle`, `prix`, `image`, `sscategorie_id`) VALUES
-(1, 'Coca Cola', 1.5, NULL, 1),
-(2, 'Coca Cola Light', 1.5, NULL, 1),
-(3, 'Coca Cola Zéro', 1.5, NULL, 1),
-(4, 'Coca Cola Life', 1.5, NULL, 1),
-(5, 'Coca Cola Cherry', 1.5, NULL, 1),
-(6, 'Pepsi', 1.5, NULL, 1),
-(7, 'Pepsi Max', 1.5, NULL, 1),
-(8, 'Orangina', 1.5, NULL, 1),
-(9, 'Fanta Citron', 1.5, NULL, 1),
-(10, 'Fanta Orange', 1.5, NULL, 1),
-(11, 'Ice Tea', 1.5, NULL, 1),
-(12, 'Oasis', 1.5, NULL, 1),
-(13, 'Minute Maid Pomme', 1.5, NULL, 1),
-(14, 'Minute Maid Orange', 1.5, NULL, 1),
-(15, 'Minute Maid Tropical', 1.5, NULL, 1),
-(16, 'Dr Pepper', 1.5, NULL, 1),
-(17, 'Sprite', 1.5, NULL, 1),
-(18, 'Red Bull', 3, NULL, 1),
-(19, 'Monster', 2, NULL, 1),
-(20, 'Leffe', 2.5, NULL, 2),
-(21, 'Leffe Ruby', 2.5, NULL, 2),
-(22, '1664', 2.5, NULL, 2),
-(23, 'Kronenbourg', 2.5, NULL, 2),
-(24, 'Grimbergen', 3, NULL, 2),
-(25, 'Rouge', 6, NULL, 3),
-(26, 'Rosé', 6, NULL, 3),
-(27, 'Blanc', 6, NULL, 3),
-(28, 'Evian 50 cL', 1.5, NULL, 4),
-(29, 'Evian 1,5 L', 3, NULL, 4),
+(1, 'Coca Cola', 1.5, 'images/Coca.jpg', 1),
+(2, 'Coca Cola Light', 1.5, 'images/Coca Light.jpg', 1),
+(3, 'Coca Cola Zï¿½ro', 1.5, 'images/Coca Zero.jpg', 1),
+(4, 'Coca Cola Life', 1.5, 'images/Coca Life.jpg', 1),
+(5, 'Coca Cola Cherry', 1.5, 'images/Coca Cherry.jpg', 1),
+(6, 'Pepsi', 1.5, 'images/Pepsi.jpg', 1),
+(7, 'Pepsi Max', 1.5, 'images/Pepsi Max.jpg', 1),
+(8, 'Orangina', 1.5, 'images/Orangina.jpg', 1),
+(9, 'Fanta Citron', 1.5, 'images/Fanta Citron.jpg', 1),
+(10, 'Fanta Orange', 1.5, 'images/Fanta Orange.jpg', 1),
+(11, 'Ice Tea', 1.5, 'images/Ice Tea.jpg', 1),
+(12, 'Oasis', 1.5, 'images/Oasis.jpg', 1),
+(13, 'Minute Maid Pomme', 1.5, 'images/Minute Maid Pomme.jpg', 1),
+(14, 'Minute Maid Orange', 1.5, 'images/Minute Maid Orange.jpg', 1),
+(15, 'Minute Maid Tropical', 1.5, 'images/Minute Maid Tropical.jpg', 1),
+(16, 'Dr Pepper', 1.5, 'images/Dr Pepper.jpg', 1),
+(17, 'Sprite', 1.5, 'images/Sprite.jpg', 1),
+(18, 'Red Bull', 3, 'images/Red Bull.jpg', 1),
+(19, 'Monster', 2, 'images/Monster.jpg', 1),
+(20, 'Leffe', 2.5, 'images/Leffe Blonde.jpg', 2),
+(21, 'Leffe Ruby', 2.5, 'images/Leffe Ruby.jpg', 2),
+(22, '1664', 2.5, 'images/1664.jpg', 2),
+(23, 'Kronenbourg', 2.5, 'images/Kronenbourg.jpg', 2),
+(24, 'Grimbergen', 3, 'images/Grimbergen.jpg', 2),
+(25, 'Rouge', 6, 'images/Rouge.jpg', 3),
+(26, 'Rosï¿½', 6, 'images/RosÃ©.jpg', 3),
+(27, 'Blanc', 6, 'images/Blanc.jpg', 3),
+(28, 'Evian 50 cL', 1.5, 'images/Evian 50 cL.jpg', 4),
+(29, 'Evian 1,5 L', 3, 'images/Evian 1,5 L.jpg', 4),
 (30, 'Cristalline 50 cL', 1, NULL, 4),
 (31, 'Cristalline 1,5 L', 2, NULL, 4),
-(32, 'Perrier', 1.5, NULL, 4),
-(33, 'Badoit', 1.5, NULL, 4),
-(34, 'San Pellegrino', 1.5, NULL, 4),
-(35, 'Heineken', 2.5, NULL, 2),
-(36, 'Beef Burger', 4, NULL, 5),
-(37, 'Cheese Burger', 4.5, NULL, 5),
-(38, 'Bacon Burger', 4.5, NULL, 5),
-(39, 'DoubleBeef Burger', 6, NULL, 5),
-(40, 'DoubleCheese Burger', 6.5, NULL, 5),
-(41, 'DoubleBacon Burger', 6.5, NULL, 5),
-(42, 'Fish Burger', 4, NULL, 5),
-(43, 'Chicken Burger', 4, NULL, 5),
-(44, 'DoubleChicken Burger', 6, NULL, 5),
-(45, 'Burger', 2, NULL, 6),
-(46, 'Jambon', 2, NULL, 6),
-(47, 'Jambon Fromage', 2, NULL, 6),
-(48, 'Bacon Chèvre', 2, NULL, 6),
-(49, 'Bacon Burger', 2, NULL, 6),
-(50, 'Cheese Burger', 2, NULL, 6),
-(51, 'Thon Mayonnaise', 2, NULL, 7),
-(52, 'Poulet Mayonnaise', 2, NULL, 7),
-(53, 'Poulet Andalouse', 2, NULL, 7),
-(54, 'Parisien', 2, NULL, 7),
-(55, 'Jambon Fromage', 2, NULL, 7),
-(56, 'Volailler', 2, NULL, 7),
-(57, 'Rosette', 2, NULL, 7),
-(58, 'Paté', 2, NULL, 7),
-(59, 'Kebab', 4, NULL, 8),
-(60, 'Kefta', 4, NULL, 8),
-(61, 'Hummer', 4, NULL, 8),
-(63, 'Hot Dog', 3, NULL, 8),
-(64, 'Falafelle', 4, NULL, 8),
-(65, 'Croque Monsieur', 3, NULL, 8),
-(66, 'Calippo', 2, NULL, 9),
-(67, 'Haagen dazs', 4, NULL, 9),
+(32, 'Perrier', 1.5, 'images/Perrier.jpg', 4),
+(33, 'Badoit', 1.5, 'images/Badoit.jpg', 4),
+(34, 'San Pellegrino', 1.5, 'images/San Pellegrino.jpg', 4),
+(35, 'Heineken', 2.5, 'images/Heineken.jpg', 2),
+(36, 'Beef Burger', 4, 'images/Beef Burger.jpg', 5),
+(37, 'Cheese Burger', 4.5, 'images/Cheese Burger.jpg', 5),
+(38, 'Bacon Burger', 4.5, 'images/Bacon Burger.jpg', 5),
+(39, 'DoubleBeef Burger', 6, 'images/DoubleBeef Burger.jpg', 5),
+(40, 'DoubleCheese Burger', 6.5, 'images/Double Cheese.jpg', 5),
+(41, 'DoubleBacon Burger', 6.5, 'images/Double Burger Bacon.jpg', 5),
+(42, 'Fish Burger', 4, 'images/Fish Burger.jpg', 5),
+(43, 'Chicken Burger', 4, 'images/Chicken Burger.jpg', 5),
+(44, 'DoubleChicken Burger', 6, 'images/Double Chicken Burger.jpg', 5),
+(45, 'Burger', 2, 'images/Panini Burger.jpg', 6),
+(46, 'Jambon', 2, 'images/Panini Jambon.jpg', 6),
+(47, 'Jambon Fromage', 2, 'images/Panini Jambon Fromage.jpg', 6),
+(48, 'Bacon Chï¿½vre', 2, 'images/Panini Bacon ChÃ¨vre.jpg', 6),
+(49, 'Bacon Burger', 2, 'images/Panini Bacon Burger.jpg', 6),
+(50, 'Cheese Burger', 2, 'images/Panini Cheese Burger.jpg', 6),
+(51, 'Thon Mayonnaise', 2, 'images/Sandwich thon Mayo.jpg', 7),
+(52, 'Poulet Mayonnaise', 2, 'images/Sandwich Poulet Mayo.jpg', 7),
+(53, 'Poulet Andalouse', 2, 'images/Sandwich Poulet Andalouse.jpg', 7),
+(54, 'Parisien', 2, 'images/Sandwich Parisien.jpg', 7),
+(55, 'Jambon Fromage', 2, 'images/Sandwich Jambon Fromage.jpg', 7),
+(56, 'Volailler', 2, 'images/Sandwich Poulet CruditÃ©.jpg', 7),
+(57, 'Rosette', 2, 'images/Sandwich Rosette.jpg', 7),
+(58, 'Patï¿½', 2, 'images/Sandwich PatÃ©.jpg', 7),
+(59, 'Kebab', 4, 'images/kebab.jpg', 8),
+(60, 'Kefta', 4, 'images/kefta.jpg', 8),
+(61, 'Hummer', 4, 'images/Hummer.jpg', 8),
+(63, 'Hot Dog', 3, 'images/Hot Dog.jpg', 8),
+(64, 'Falafelle', 4, 'images/Falafelle.jpg', 8),
+(65, 'Croque Monsieur', 3, 'images/Croque Monsieur.jpg', 8),
+(66, 'Calippo', 2, 'images/Calippo.jpg', 9),
+(67, 'Haagen dazs', 4, 'images/Haagen Dazs.jpg', 9),
 (68, 'Ben & Jerry\'s', 4, NULL, 9),
-(69, 'Fusée', 2, NULL, 9),
-(70, 'Magnum', 3, NULL, 9),
-(71, 'Chocolat', 2, NULL, 10),
-(72, 'Caramel', 2, NULL, 10),
+(69, 'Fusï¿½e', 2, 'images/FusÃ©e.jpg', 9),
+(70, 'Magnum', 3, 'images/Magnum.jpg', 9),
+(71, 'Chocolat', 2, 'images/Chocolat.jpg', 10),
+(72, 'Caramel', 2, 'images/Caramel.jpg', 10),
 (73, 'Vanille', 2, NULL, 10),
-(74, 'Daim', 2, NULL, 11),
-(75, 'Reine', 6, NULL, 12),
-(76, 'Deluxe', 6, NULL, 12),
-(77, 'Pepper Beef', 6, NULL, 12),
-(78, 'Orientale', 6, NULL, 12),
-(79, 'Peppina', 6, NULL, 12),
-(80, 'Steack & Cheese', 6, NULL, 12),
-(81, 'Reine', 6, NULL, 12),
-(82, 'Jambon', 7, NULL, 13),
-(83, 'Poulet', 7, NULL, 13),
-(84, 'Boeuf', 7, NULL, 13),
-(85, 'Fondue', 8, NULL, 14),
-(86, 'Authentique Raclette', 8, NULL, 14),
-(87, 'Bacon Groovy', 8, NULL, 14),
-(88, 'Savoyarde', 8, NULL, 14),
-(89, 'Diavola', 8, NULL, 14),
-(90, 'Diavola Pepperoni', 8, NULL, 14),
-(91, 'Hypnotika', 8, NULL, 14),
-(92, 'Extravaganzza', 8, NULL, 14),
-(93, 'Chickenita Pepperoni', 8, NULL, 14),
-(94, '4 Fromages', 8, NULL, 14),
-(95, 'Hawaïenne Jambon', 8, NULL, 14),
-(96, 'Hawaïenne Poulet', 8, NULL, 14),
-(97, 'Indienne', 8, NULL, 14),
-(98, 'Forestière', 8, NULL, 14),
-(99, 'Cannibale', 8, NULL, 14),
-(100, 'Grande Frite', 3, NULL, 15),
-(101, 'Petite Frite', 2, NULL, 15),
-(102, 'Grande Potatoes', 3, NULL, 15),
-(103, 'Petite Potatoes', 2, NULL, 15),
-(104, 'Maïs', 3, NULL, 15),
-(105, 'Onion rings', 3, NULL, 15),
-(106, 'Salade', 3, NULL, 16),
-(107, 'Carotte rapées', 3, NULL, 15),
-(108, 'Celeri', 3, NULL, 15),
-(109, 'Chicon', 3, NULL, 15);
+(74, 'Daim', 2, 'images/Daim.jpg', 11),
+(75, 'Reine', 6, 'images/Reine.jpg', 12),
+(76, 'Deluxe', 6, 'images/Deluxe.jpg', 12),
+(77, 'Pepper Beef', 6, 'images/Pepper Beef.jpg', 12),
+(78, 'Orientale', 6, 'images/Orientale.jpg', 12),
+(79, 'Peppina', 6, 'images/Peppina.jpg', 12),
+(80, 'Steack & Cheese', 6, 'images/Steak & Cheese.jpg', 12),
+(81, 'Reine', 6, 'images/Reine.jpg', 12),
+(82, 'Jambon', 7, 'images/Calzone.jpg', 13),
+(83, 'Poulet', 7, 'images/Calzone.jpg', 13),
+(84, 'Boeuf', 7, 'images/Calzone.jpg', 13),
+(85, 'Fondue', 8, 'images/Fondue.jpg', 14),
+(86, 'Authentique Raclette', 8, 'images/Authentique Raclette.jpg', 14),
+(87, 'Bacon Groovy', 8, 'images/Bacon Groovy.jpg', 14),
+(88, 'Savoyarde', 8, 'images/Savoyarde.jpg', 14),
+(89, 'Diavola', 8, 'images/Diavola.jpg', 14),
+(90, 'Diavola Pepperoni', 8, 'images/Diavola Pepperoni.jpg', 14),
+(91, 'Hypnotika', 8, 'images/Hypnotika.jpg', 14),
+(92, 'Extravaganzza', 8, 'images/Extravanganzza.jpg', 14),
+(93, 'Chickenita Pepperoni', 8, 'images/Chickenita Pepperoni.jpg', 14),
+(94, '4 Fromages', 8, 'images/4 Fromages.jpg', 14),
+(95, 'Hawaï¿½enne Jambon', 8, 'images/HawaÃ¯enne Jambon.jpg', 14),
+(96, 'Hawaï¿½enne Poulet', 8, 'images/HawaÃ¯enne Poulet.jpg', 14),
+(97, 'Indienne', 8, 'images/Indienne.jpg', 14),
+(98, 'Forestiï¿½re', 8, 'images/ForestiÃ¨re.jpg', 14),
+(99, 'Cannibale', 8, 'images/Cannibale.jpg', 14),
+(100, 'Grande Frite', 3, 'images/Grande Frite.jpg', 15),
+(101, 'Petite Frite', 2, 'images/Petite Frite.jpg', 15),
+(102, 'Grande Potatoes', 3, 'images/Potatoes.jpg', 15),
+(103, 'Petite Potatoes', 2, 'images/Potatoes.jpg', 15),
+(104, 'Maï¿½s', 3, 'images/Mais.jpg', 15),
+(105, 'Onion rings', 3, 'images/Onion Rings.jpg', 15),
+(106, 'Salade', 3, 'images/Salade.jpg', 16),
+(107, 'Carotte rapï¿½es', 3, 'images/Carotte RapÃ©e.jpg', 15),
+(108, 'Celeri', 3, 'images/CÃ©leri.jpg', 15),
+(109, 'Chicon', 3, 'images/Chicon.jpg', 15);
 
 -- --------------------------------------------------------
 
@@ -954,9 +774,9 @@ CREATE TABLE `type_commande` (
 --
 
 INSERT INTO `type_commande` (`id`, `libelle`) VALUES
-(1, 'Carte Bleu'),
-(2, 'Espèces'),
-(3, 'Chèques Restaurant');
+(1, 'retrait'),
+(2, 'livraison'),
+(3, 'restaurant');
 
 -- --------------------------------------------------------
 
@@ -970,6 +790,13 @@ CREATE TABLE `user` (
   `mdp` varchar(255) NOT NULL,
   `groupe_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `user`
+--
+
+INSERT INTO `user` (`id`, `login`, `mdp`, `groupe_id`) VALUES
+(1, 'root', '$2y$10$APK/h9s9YWKqM5YY3/o6guUUpTaAtrNPCP59M/y9tXvqGnqpCgCnq', 1);
 
 -- --------------------------------------------------------
 
@@ -1080,10 +907,10 @@ ALTER TABLE `client`
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Index pour la table `commande_custom`
+-- Index pour la table `commande`
 --
-ALTER TABLE `commande_custom`
-  ADD PRIMARY KEY (`custom_produit_id`,`commande_id`);
+ALTER TABLE `commande`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `compo_menu`
@@ -1181,17 +1008,17 @@ ALTER TABLE `client`
 -- AUTO_INCREMENT pour la table `custom_produit`
 --
 ALTER TABLE `custom_produit`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `etat_commande`
 --
 ALTER TABLE `etat_commande`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pour la table `groupe`
 --
 ALTER TABLE `groupe`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `menu`
 --
@@ -1206,7 +1033,7 @@ ALTER TABLE `option_produit`
 -- AUTO_INCREMENT pour la table `paiement`
 --
 ALTER TABLE `paiement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `produit`
 --
@@ -1226,7 +1053,7 @@ ALTER TABLE `type_commande`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `valeur_option`
 --

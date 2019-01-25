@@ -11,6 +11,8 @@ class commande{
     public $comm;
     public $etat_id;
     public $type_id;
+    public $client_id;
+    public $paiement_id;
 
     /**
      * Constructeur de la classe commande
@@ -32,6 +34,14 @@ class commande{
         $this->comm=$data['commentaire'];
         $this->etat_id=$data['etat_id'];
         $this->type_id=$data['type_id'];
+        $this->client_id=$data['client_id'];
+        $this->paiement_id=$data['paiement_id'];
+    }
+
+    function updateState($idstate) {
+      global $db;
+
+      $db->query("UPDATE commande SET etat_id = $idstate WHERE id = $this->id");
     }
 
     /**
@@ -63,10 +73,11 @@ class commande{
     static function getAllCommande() {
       global $db;
 
-      $sql="SELECT commande.id AS id,adresse_rue,adresse_cp,adresse_ville,datetime_livraison,datetime_creation,total,commentaire,nom,prenom,email,telephone,etat_commande.libelle as etat,type_commande.libelle as type
-            FROM ((commande INNER JOIN type_commande ON (type_commande.id = commande.type_id))
+      $sql="SELECT commande.id AS id,adresse_rue,adresse_cp,adresse_ville,datetime_livraison,datetime_creation,total,commentaire,nom,prenom,email,telephone,etat_commande.libelle as etat,type_commande.libelle as type,paiement.libelle as paiement
+            FROM (((commande INNER JOIN type_commande ON (type_commande.id = commande.type_id))
             INNER JOIN etat_commande ON (etat_commande.id = commande.etat_id))
-            INNER JOIN client ON (client.id = commande.client_id)";
+            INNER JOIN client ON (client.id = commande.client_id))
+            INNER JOIN paiement ON (paiement.id = commande.paiement_id)";
 
       $req=$db->query($sql);
       return $req->fetchAll();
