@@ -122,6 +122,7 @@ include "includes/navbar_cat.php";
               <div class="carousel-inner">
                 <?php
                 $sscategories = sscategorie::getSSCat($cpt2);
+
                 $cpt = 1;
 
                 foreach ($sscategories as $sscategorie) {
@@ -141,8 +142,9 @@ include "includes/navbar_cat.php";
                             <div class="card-body">
                               <h5 class="card-title"> <?php echo $sscategorie['libelle']; ?> </h5>
                               <p class="card-text"> </p>
-                              <a href="#" class="btn btn-primary"> Commander </a>
-                            </div>
+                              <a class="<?php if(!empty($_GET['id'])){ if($sscategorie['categorie_id'] == $_GET['id']){echo "active" ;}}?> btn btn-primary" href="produit.php?sscat=<?php echo $sscategorie['id']; ?>"> Commander </a>
+
+                              </div>
                           </div>
                         </div>
                         <?php
