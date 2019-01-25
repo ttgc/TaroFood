@@ -47,15 +47,16 @@ if(empty($_GET)){
           $produits = produit::getProduitCat($sscat->id);
           $cpt = 1;
           foreach ($produits as $produit) {
+            $nbProd = sizeof($produits);
             if($cpt%3 == 1){
               ?>
+
               <div class="row">
                 <?php
               }
               ?>
               <div class="col-md-4">
-                <div class="card text-center bg-light border-dark mb-3" style="width: 18rem;">
-
+                <div class="card text-center bg-light border-dark mb-3">
                   <img src="<?php echo $produit['image']; ?>" class="card-img-top" alt="...">
                   <div class="card-body">
                     <h4 class="card-title"> <?php echo $produit['libelle']; ?> </h4>
@@ -65,7 +66,7 @@ if(empty($_GET)){
                 </div>
               </div>
               <?php
-              if($cpt%3 == 0) {
+              if($cpt%3 == 0 || $cpt == $nbProd) {
                 ?>
               </div>
               <?php
@@ -74,7 +75,7 @@ if(empty($_GET)){
           }
           ?>
           </div>
-    
+
       </div>
       <?php
       }
