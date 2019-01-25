@@ -48,9 +48,35 @@ if(!fonctions::access_check($groupes)){
                         <td><?php echo $menu['prix']; ?></td>
                         <td>
                             <a href="menus_process.php?mode=update&type=menu&id=<?php echo $menu['id']; ?>" class="btn btn-primary"><i class="fas fa-pen"></i></a>
-                            <a href="menus_process.php?mode=delete&type=menu&id=<?php echo $menu['id']; ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                            <button href=<?php echo "#modal".$menu['id']; ?> class="btn btn-danger" type="button" data-toggle="modal"><i class="fas fa-trash"></i></button>
                         </td>
                 </tr>
+
+                <!-- Modal HTML -->
+                <div id=<?php echo "modal".$menu['id']; ?> class="modal fade">
+                  <div class="modal-dialog modal-confirm">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <div class="icon-box">
+                          <i class="material-icons">&#xE5CD;</i>
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      </div>
+                      <br/>
+                      <div class="modal-body">
+                        <h4 class="modal-title">Êtes vous sûr ?</h4>
+                        <br/>
+                        <p>Voulez vous vraiment supprimer <?php echo $menu['libelle'];?> ? Cette action ne pourra pas être annulée</p>
+                      </div>
+                      <br/>
+                      <div class="modal-footer" style="justify-content: center;">
+                        <button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
+                        <a type="button" href="menus_process.php?mode=delete&type=menu&id=<?php echo $menu['id']; ?>" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Supprimer</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <tr id="produits-<?php echo $menu['id']?>" style="display:none">
                     <td colspan="5">
                         <table class="table" >
