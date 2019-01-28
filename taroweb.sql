@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 23 Janvier 2019 à 15:58
+-- Généré le :  Lun 28 Janvier 2019 à 15:26
 -- Version du serveur :  5.7.14
 -- Version de PHP :  7.0.10
 
@@ -733,30 +733,31 @@ INSERT INTO `produit` (`id`, `libelle`, `prix`, `image`, `sscategorie_id`) VALUE
 CREATE TABLE `sscategorie` (
   `id` int(11) NOT NULL,
   `libelle` varchar(255) NOT NULL,
-  `categorie_id` int(11) NOT NULL
+  `categorie_id` int(11) NOT NULL,
+  `image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `sscategorie`
 --
 
-INSERT INTO `sscategorie` (`id`, `libelle`, `categorie_id`) VALUES
-(1, 'Soda', 1),
-(2, 'Bière', 1),
-(3, 'Vin', 1),
-(4, 'Eau', 1),
-(5, 'Hamburger', 2),
-(6, 'Panini', 2),
-(7, 'Froid', 2),
-(8, 'Snack', 2),
-(9, 'Glace', 3),
-(10, 'Crème', 3),
-(11, 'Tarte', 3),
-(12, 'Classique', 4),
-(13, 'Calzone', 4),
-(14, 'Complète', 4),
-(15, 'Chaud', 5),
-(16, 'Froid', 5);
+INSERT INTO `sscategorie` (`id`, `libelle`, `categorie_id`, `image`) VALUES
+(1, 'Soda', 1, ''),
+(2, 'Bière', 1, ''),
+(3, 'Vin', 1, ''),
+(4, 'Eau', 1, ''),
+(5, 'Hamburger', 2, ''),
+(6, 'Panini', 2, ''),
+(7, 'Froid', 2, ''),
+(8, 'Snack', 2, ''),
+(9, 'Glace', 3, ''),
+(10, 'Crème', 3, ''),
+(11, 'Tarte', 3, ''),
+(12, 'Classique', 4, ''),
+(13, 'Calzone', 4, ''),
+(14, 'Complète', 4, ''),
+(15, 'Chaud', 5, ''),
+(16, 'Froid', 5, '');
 
 -- --------------------------------------------------------
 
