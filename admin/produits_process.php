@@ -17,7 +17,13 @@ if(!empty($_POST)){
     switch($_POST['type']){
         case 'produit':
             if(empty($_POST['id'])){
-                produit::insertProduit($_POST['lib'],$_POST['prix'],$_POST['image'],$_POST['sscat']);
+                if(!empty($_FILES['image']['name'])){
+                    $file_url="images/".basename($_FILES['image']['name']);
+                    move_uploaded_file($_FILES['image']['tmp_name'], "../".$file_url);
+                }else{
+                    $file_url=null;
+                }
+                produit::insertProduit($_POST['lib'],$_POST['prix'],$file_url,$_POST['sscat']);
             }else{
                 if(!empty($_FILES['image']['name'])){
                     $file_url="images/".basename($_FILES['image']['name']);
@@ -41,10 +47,23 @@ if(!empty($_POST)){
         break;
         case 'sscategorie':
             if(empty($_POST['id'])){
-                sscategorie::insertSSCat($_POST['lib'],$_POST['cat']);
+                if(!empty($_FILES['image']['name'])){
+                    $file_url="images/".basename($_FILES['image']['name']);
+                    move_uploaded_file($_FILES['image']['tmp_name'], "../".$file_url);
+                }else{
+                    $file_url=null;
+                }
+                sscategorie::insertSSCat($_POST['lib'],$file_url,$_POST['cat']);
             }else{
+                if(!empty($_FILES['image']['name'])){
+                    $file_url="images/".basename($_FILES['image']['name']);
+                    move_uploaded_file($_FILES['image']['tmp_name'], "../".$file_url);
+                }else{
+                    $file_url=null;
+                }
                 $sscat=new sscategorie($_POST['id']);
                 $sscat->lib=$_POST['lib'];
+                $sscat->image=$file_url;
                 $sscat->cat=$_POST['cat'];
                 sscategorie::updateSSCat($sscat);
             }
@@ -118,6 +137,10 @@ if($_GET['mode']=="delier"){
                         <div class="form-group">
                             <label for="lib">Libelle</label>
                             <input type="text" class="form-control" name="lib" id="lib" <?php if(!empty($sscat)){echo "value='$sscat->lib'";} ?>>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Image</label>
+                            <input type="file" class="form-control" name="image" id="image">
                         </div>
                         <div class="form-group">
                             <label for="cat">Categorie</label>
