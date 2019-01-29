@@ -3,7 +3,7 @@
 class Database
 {
     private static $dbHost = "localhost";
-    private static $dbName = "taroweb2";
+    private static $dbName = "taroweb";
     private static $dbUsername = "root";
     private static $dbUserpassword = "root";
 
