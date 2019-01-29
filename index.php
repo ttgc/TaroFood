@@ -5,6 +5,7 @@ require "classes/categorie.php";
 require "classes/sscategorie.php";
 require "classes/produit.php";
 $db = Database::connect();
+include "includes/cookie.php";
 ?>
 <!DOCTYPE html>
 <html>

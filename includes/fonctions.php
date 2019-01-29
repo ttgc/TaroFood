@@ -27,9 +27,9 @@ class fonctions{
      * @return array 
      */
     static function panier_check(){
-        if(!isset($_COOKIE['panier'])){
+        if(empty($_COOKIE['panier'])){
             setcookie("panier",null,time()+3600);
-            return null;
+            return array();
         }else{
             return json_decode($_COOKIE['panier'],true);
         }
@@ -46,11 +46,12 @@ class fonctions{
     /**
      * Ajoute le custom_produit $id au panier
      * @param int $panier
+     * @return array $panier
      */
     static function add_panier($id){
-        $panier=$panier_check();
-        $panier_push($id);
-        update_panier($panier);
+        (array) $pan=fonctions::panier_check();
+        array_push($pan,$id);
+        fonctions::update_panier($pan);
     }
 
 

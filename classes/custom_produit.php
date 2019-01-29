@@ -3,9 +3,6 @@ class custom_produit{
 
     public $id;
     public $produit;
-    public $commande;
-    public $valeur;
-    public $qte;
 
     /**
      * Constructeur de la classe custom_produit
@@ -19,9 +16,6 @@ class custom_produit{
 
         $this->id=$id;
         $this->produit=$data['produit_id'];
-        $this->commande=$data['commande_id'];
-        $this->valeur=$data['valeur_id'];
-        $this->qte=$data['qte'];
     }
 
     /**
@@ -31,21 +25,10 @@ class custom_produit{
      * @param $valeur_id
      * @return array
      */
-    static function getProduitCustom($commande_id=null, $produit_id=null, $valeur_id=null){
+    static function getProduitCustom($produit_id){
         global $db;
         
-        $sql = "";
-        $arr=array("commande_id" => $commande_id,"produit_id" => $produit_id,"valeur_id" => $valeur_id);
-        foreach($arr as $k => $a){
-            if(!empty($a)){
-                if(empty($sql)){
-                    $sql=" WHERE $k='$a'";
-                }else{
-                    $sql.=" AND $k='$a'";
-                }
-            }
-        }
-        $sql="SELECT * FROM custom_produit".$sql;
+        $sql="SELECT * FROM custom_produit WHERE produit_id=$produit_id";
 
         $req=$db->query($sql);
         return $req->fetchAll();
