@@ -23,17 +23,7 @@
             0,00 € <i class="fas fa-shopping-cart"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <?php
-              require_once './classes/custom_produit.php';
-              $panier=fonctions::panier_check();
-              foreach($panier as $id){
-                $cp = new custom_produit($id);
-                $prd = new produit($cp->produit);
-                ?>
-                <a class="dropdown-item" href="#"><?php echo $prd->lib; ?></a>
-                <?php
-              }
-            ?>
+                <a class="dropdown-item" href="#">Item 1</a>
             <hr/>
             <a class="dropdown-item" href="#"><i class="fas fa-trash"></i> Vider le panier</a>
           </div>

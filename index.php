@@ -5,7 +5,6 @@ require "classes/categorie.php";
 require "classes/sscategorie.php";
 require "classes/produit.php";
 $db = Database::connect();
-include "includes/cookie.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -101,11 +100,11 @@ include "includes/navbar_cat.php";
                   ?>
                   <div class="col-md-4">
                     <div class="card text-center bg-light border-dark">
-                      <img src="images/b1.png" class="card-img-top" alt="...">
+                      <img src="<?php echo $sscategorie['image']; ?>" class="card-img-top" alt="...">
                       <div class="card-body">
                         <h5 class="card-title"> <?php echo $sscategorie['libelle']; ?> </h5>
                         <p class="card-text"> </p>
-                        <a href="#" class="btn btn-primary"> Commander </a>
+                        <a href="produit.php?sscat=<?php echo $sscategorie['id']?>" class="btn btn-primary"> Commander </a>
                       </div>
                     </div>
                   </div>
