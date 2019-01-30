@@ -86,6 +86,7 @@ class commande{
             INNER JOIN paiement ON (paiement.id = commande.paiement_id)";
 
       $req=$db->query($sql);
+      if (!$req) return array();
       return $req->fetchAll();
     }
 }
