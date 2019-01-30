@@ -4,6 +4,7 @@ class sscategorie{
     public $id;
     public $lib;
     public $cat;
+    public $image;
 
     /**
      * Constructeur de la classe sscategorie
@@ -37,7 +38,7 @@ class sscategorie{
      * @param $lib
      * @param $cat
      */
-    static function insertSSCat($lib,$cat){
+    static function insertSSCat($lib,$cat, $image){
         global $db;
         $db->query("INSERT INTO sscategorie VALUES(null, '$lib',$cat)");
     }
