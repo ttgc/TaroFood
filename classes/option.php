@@ -48,7 +48,7 @@ class option{
      */
     static function lierOption($opt_id,$prod_id){
         global $db;
-        $db->query("INSERT INTO compo_produit VALUES ($prod_id,$opt_id)");
+        $db->query("INSERT INTO compo_produit VALUES ($prod_id,$opt_id,null)");
     }
 
     /**

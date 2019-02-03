@@ -25,16 +25,15 @@ if(!empty($_POST)){
                 }
                 produit::insertProduit($_POST['lib'],$_POST['prix'],$file_url,$_POST['sscat']);
             }else{
-                if(!empty($_FILES['image']['name'])){
-                    $file_url="images/".basename($_FILES['image']['name']);
-                    move_uploaded_file($_FILES['image']['tmp_name'], "../".$file_url);
-                }else{
-                    $file_url=null;
-                }
+                
                 $prd=new produit($_POST['id']);
                 $prd->lib=$_POST['lib'];
                 $prd->prix=$_POST['prix'];
-                $prd->image=$file_url;
+                if(!empty($_FILES['image']['name'])){
+                    $file_url="images/".basename($_FILES['image']['name']);
+                    move_uploaded_file($_FILES['image']['tmp_name'], "../".$file_url);
+                    $prd->image=$file_url;
+                }
                 $prd->sscat=$_POST['sscat'];
                 produit::updateProduit($prd);
                 if(!empty($_POST['options'])){
