@@ -19,11 +19,7 @@ class custom_produit{
     }
 
     /**
-     * Renvoie toutes les produits commandés dans la commande $commande_id, avec comme produit de base $produit_id, et une valeur $valeur_id
-     * @param $commande_id
-     * @param $produit_id
-     * @param $valeur_id
-     * @return array
+     * jsp
      */
     static function getProduitCustom($produit_id){
         global $db;
@@ -32,6 +28,33 @@ class custom_produit{
 
         $req=$db->query($sql);
         return $req->fetchAll();
+    }
+
+    /**
+     * Insère un custom_produit correspondant à un produit $produit
+     * @param int $produit
+     */
+    static function insertCustomProduit($produit){
+        global $db;
+        $db->query("INSERT INTO custom_produit VALUES(null, '$produit')");
+    }
+
+    /**
+     * Met a jour un custom_produit à partir un objet cprd
+     * @param custom_produit $cprd
+     */
+    static function updateCustomProduit($cprd){
+        global $db;
+        $db->query("UPDATE custom_produit SET produit_id='$cprd->produit' WHERE id=$cprd->id");
+    }
+
+    /**
+     * Supprime le custom_produit qui a l'id $id
+     * @param $id
+     */
+    static function deleteCustomProduit($id){
+        global $db;
+        $db->query("DELETE FROM custom_produit WHERE id=$id");
     }
 }
 ?>

@@ -61,7 +61,7 @@ if(empty($_GET)){
                   <div class="card-body">
                     <h4 class="card-title"> <?php echo $produit['libelle']; ?> </h4>
                     <h5 class="card-text"> <?php echo $produit['prix']; ?>€</h5>
-                    <a href="#" class="btn btn-primary"> Commander </a>
+                    <a id="prd<?php echo $produit['id']?>" href="#" class="btn btn-primary btn-order"> Commander </a>
                   </div>
                 </div>
               </div>
@@ -82,6 +82,23 @@ if(empty($_GET)){
       require "script/script.js";
       require "includes/footer.php";
       ?>
+      <script src="script/storage.js"></script>
+      <script>
+      $(document).ready(function(){
+        check_panier();
+        $('.btn-order').click(function(){
+          var attr = $('.btn-order').attr('id');
+          var id = attr.substr(attr.length-1,1);
+          $.post("includes/cprd_check.php",
+          {
+            produit: id
+          },
+          function(data,status){
+            addToPanier(data);
+          });
+        });
+      });
+      </script>
     </div>
   </body>
   </html>

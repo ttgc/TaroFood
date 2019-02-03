@@ -61,12 +61,12 @@ class produit{
     }
 
     /**
-     * Met a jour un user à partir un objet user
-     * @param user $user
+     * Met a jour un produit à partir un objet prd
+     * @param produit $prd
      */
-    static function updateProduit($user){
+    static function updateProduit($prd){
         global $db;
-        $db->query("UPDATE produit SET libelle='$user->lib',prix='$user->prix',image='$user->image',sscategorie_id='$user->sscat' WHERE id=$user->id");
+        $db->query("UPDATE produit SET libelle='$prd->lib',prix='$prd->prix',image='$prd->image',sscategorie_id='$prd->sscat' WHERE id=$prd->id");
     }
 
     /**
