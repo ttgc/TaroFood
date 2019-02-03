@@ -16,19 +16,8 @@
       ?>
     </ul>
 
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item dropleft ml-auto">
-        <div>
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            0,00 € <i class="fas fa-shopping-cart"></i>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Item 1</a>
-            <hr/>
-            <a class="dropdown-item" href="#"><i class="fas fa-trash"></i> Vider le panier</a>
-          </div>
-        </div>
-      </li>
-    </ul>
+    <div class="navbar-nav ml-auto">
+      <a class="nav-link" href="panier.php"><i class="fas fa-shopping-cart"></i> Panier (<span id="panierItemNumber"></span>)</a></span>
+    </div>
   </div>
 </nav>

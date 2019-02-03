@@ -82,19 +82,23 @@ if(empty($_GET)){
       require "script/script.js";
       require "includes/footer.php";
       ?>
-      <script src="script/storage.js"></script>
+      <script src="script/panier.js"></script>
       <script>
       $(document).ready(function(){
-        check_panier();
+        create_panier();
+        var panier = getPanier();
+        $("#panierItemNumber").html(panier.length);
         $('.btn-order').click(function(){
+          alert('Produit ajouté au panier');
           var attr = $('.btn-order').attr('id');
-          var id = attr.substr(attr.length-1,1);
+          var id = attr.substr(3,attr.length-3);
           $.post("includes/cprd_check.php",
           {
             produit: id
           },
           function(data,status){
             addToPanier(data);
+            displayPanierNumber();
           });
         });
       });

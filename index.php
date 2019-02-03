@@ -138,5 +138,11 @@ include "includes/navbar_cat.php";
     require "includes/footer.php";
     require "script/script.js";
     ?>
+  <script src="script/panier.js"></script>
+  <script>
+  $(document).ready(function(){
+    displayPanierNumber();
+  });
+  </script>
 </body>
 </html>
